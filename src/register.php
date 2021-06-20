@@ -80,7 +80,7 @@ if (isset($_POST['submit'])) {
 				<input type="text" placeholder="Specialty" name="specialty" value="<?php echo $specialty; ?>" required>
 			</div>
 			<div class="input-group">
-				<input type="number" placeholder="Course" name="course" value="<?php echo $course; ?>" required>
+				<input type="number" placeholder="Course" name="course" min="1" max="4" value="<?php echo $course; ?>" required>
 			</div>
 			<div class="input-group">
 				<input type="password" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
