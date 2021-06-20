@@ -46,15 +46,15 @@ if (isset($_POST['submit'])) {
       // Insert image file name into database 
       $insert = $db->query("INSERT INTO resourcres (file_name, uploaded_at, event_id) VALUES $insertValuesSQL");
       if ($insert) {
-        $statusMsg = "Files are uploaded successfully." . $errorMsg;
+        $statusMsg = "Успешно качване на файловете!" . $errorMsg;
       } else {
-        $statusMsg = "Sorry, there was an error uploading your file.";
+        $statusMsg = "Нещо се обърка - грешка при качването на файловете.";
       }
     } else {
-      $statusMsg = "Upload failed! " . $errorMsg;
+      $statusMsg = "Неуспешно качване! " . $errorMsg;
     }
   } else {
-    $statusMsg = 'Please select a file to upload.';
+    $statusMsg = 'Изберете файл за качване.';
   }
 }
 
@@ -67,18 +67,16 @@ if (isset($_POST['submit'])) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
   <link rel="stylesheet" type="text/css" href="style.css">
 
-  <title>Login Form - Pure Coding</title>
+  <title>Качване на файлове</title>
 </head>
 
 <body>
   <form action="upload.php" method="post" enctype="multipart/form-data">
-    Select Image Files to Upload:
+    Изберете файлове за качване:
     <input type="file" name="files[]" multiple>
-    <input type="submit" name="submit" value="UPLOAD">
+    <input type="submit" name="submit" value="Качване">
   </form>
 </body>
 

@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>Send Mail From Localhost | CodingNepal</title>
     <link rel="stylesheet" href="style2.css">
-    <!-- bootstrap cdn link -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
 </head>
 <body>
     <div class="container">

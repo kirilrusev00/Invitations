@@ -1,25 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
     width: 100%;
     min-height: 100vh;
-    background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(bg.jpg);
-    background-position: center;
-    background-size: cover;
+    background-color:#d4e6f1;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .container {
-    width: 400px;
+    width: 450px;
     min-height: 400px;
     background: #FFF;
     border-radius: 5px;
@@ -28,72 +24,19 @@ body {
 }
 
 .container .login-text {
-    color: #111;
+    color: #003d7ee3;
     font-weight: 500;
     font-size: 1.1rem;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     display: block;
     text-transform: capitalize;
 }
 
-.container .login-social {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
-    margin-bottom: 25px;
-}
-
-.container .login-social a {
-    padding: 12px;
-    margin: 10px;
-    border-radius: 3px;
-    box-shadow: 0 0 5px rgba(0,0,0,.3);
-    text-decoration: none;
-    font-size: 1rem;
-    text-align: center;
-    color: #FFF;
-    transition: .3s;
-}
-
-.container .login-social a i {
-    margin-right: 5px;
-}
-
-.container .login-social a.facebook {
-    background: #4267B2;
-}
-
-.container .login-social a.twitter {
-    background: #1DA1F2;
-}
-
-.container .login-social a.google-plus {
-    background: #db4a39;
-}
-
-.container .login-social a.linkedin {
-    background: #0e76a8;
-}
-
-.container .login-social a.facebook:hover {
-    background: #3d5fa3;
-}
-
-.container .login-social a.twitter:hover {
-    background: #1991db;
-}
-
-.container .login-social a.google-plus:hover {
-    background: #ca4334;
-}
-
-.container .login-social a.linkedin:hover {
-    background: #0b5c81;
-}
 
 .container .login-email .input-group {
     width: 100%;
-    height: 50px;
+    height: 40px;
     margin-bottom: 25px;
 }
 
@@ -110,16 +53,17 @@ body {
 }
 
 .container .login-email .input-group input:focus, .container .login-email .input-group input:valid {
-    border-color: #a29bfe;
+    border-color: #003c7e;
 }
 
 .container .login-email .input-group .btn {
     display: block;
     width: 100%;
-    padding: 15px 20px;
+    height: 52px;
+    padding: 9px 20px;
     text-align: center;
     border: none;
-    background: #a29bfe;
+    background: #4990b9;
     outline: none;
     border-radius: 30px;
     font-size: 1.2rem;
@@ -130,17 +74,19 @@ body {
 
 .container .login-email .input-group .btn:hover {
     transform: translateY(-5px);
-    background: #6c5ce7;
+    background: #003c7e;
 }
 
 .login-register-text {
     color: #111;
     font-weight: 600;
+    padding-top:15px;
+    padding-left: 50px;
 }
 
 .login-register-text a {
     text-decoration: none;
-    color: #6c5ce7;
+    color: #003c7e;
 }
 
 @media (max-width: 430px) {
