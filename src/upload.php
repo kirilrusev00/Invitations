@@ -2,6 +2,8 @@
 // Include the database configuration file 
 require_once(realpath(dirname(__FILE__) . '/backend/db/config.php'));
 
+$db = new Database();
+
 if (isset($_POST['submit'])) {
   // File upload configuration 
   $targetDir = "uploads/";
@@ -44,7 +46,7 @@ if (isset($_POST['submit'])) {
     if (!empty($insertValuesSQL)) {
       $insertValuesSQL = trim($insertValuesSQL, ',');
       // Insert image file name into database 
-      $insert = $db->query("INSERT INTO resourcres (file_name, uploaded_at, event_id) VALUES $insertValuesSQL");
+      $insert = $db->getConnection()->query("INSERT INTO resourcres (file_name, uploaded_at, event_id) VALUES $insertValuesSQL");
       if ($insert) {
         $statusMsg = "Files are uploaded successfully." . $errorMsg;
       } else {

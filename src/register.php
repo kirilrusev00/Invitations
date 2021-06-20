@@ -2,6 +2,8 @@
 
 require_once(realpath(dirname(__FILE__) . '/backend/db/config.php'));
 
+$db = new Database();
+
 error_reporting(0);
 
 session_start();
@@ -22,11 +24,11 @@ if (isset($_POST['submit'])) {
 
   if ($password == $cpassword) {
     $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = mysqli_query($db, $sql);
+    $result = mysqli_query($db->getConnection(), $sql);
     if (!$result->num_rows > 0) {
       $sql = "INSERT INTO users ( email, password)
 					VALUES ('$email', '$password')";
-      $result = mysqli_query($db, $sql);
+      $result = mysqli_query($db->getConnection(), $sql);
       if ($result) {
         echo "<script>alert('User Registration Completed.')</script>";
         $username = "";

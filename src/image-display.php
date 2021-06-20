@@ -3,7 +3,8 @@
 require_once(realpath(dirname(__FILE__) . '/backend/db/config.php'));
 
 // Get resources from the database
-$query = $db->query("SELECT * FROM resources ORDER BY id DESC");
+$db = new Database();
+$query = $db->getConnection()->query("SELECT * FROM resources ORDER BY id DESC");
 
 if ($query->num_rows > 0) {
   while ($row = $query->fetch_assoc()) {
