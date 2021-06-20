@@ -8,13 +8,7 @@
 body {
     width: 100%;
     min-height: 100vh;
-<<<<<<< HEAD
-    /* background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(bg.jpg); */
-    background-position: center;
-    background-size: cover;
-=======
     background-color:#d4e6f1;
->>>>>>> ad82b55bf896529ccef276337d267d0738c103e8
     display: flex;
     justify-content: center;
     align-items: center;
