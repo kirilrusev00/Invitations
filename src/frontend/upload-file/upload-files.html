@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+
+  <title>Качване на файлове</title>
+</head>
+
+<body>
+  <form action="../../backend/endpoints/upload-files.php" method="post" enctype="multipart/form-data">
+    Изберете файлове за качване:
+    <input type="file" name="files[]" multiple>
+    <input type="submit" name="submit" value="Качване">
+  </form>
+</body>
+
+</html>
