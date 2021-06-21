@@ -14,12 +14,12 @@ if (!isset($_SESSION['email'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome</title>
+  <title>Начална страница</title>
 </head>
 
 <body>
-  <?php echo "<h1>Welcome " . $_SESSION['email'] . "</h1>"; ?>
-  <a href="logout.php">Logout</a>
+  <?php echo "<h1> " . $_SESSION['email'] . "</h1>"; ?>
+  <a href="logout.php">Изход</a>
 </body>
 
 </html>
