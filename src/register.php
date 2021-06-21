@@ -92,7 +92,7 @@ if (isset($_POST['submit'])) {
       <div class="input-group">
         <button name="submit" class="btn">Регистрация</button>
       </div>
-      <p class="login-register-text">Вече имаш профил? <a href="index.php">Влез в профила си</a></p>
+      <p class="login-register-text">Вече имаш профил? <a href="index.html">Влез в профила си</a></p>
     </form>
   </div>
 </body>
