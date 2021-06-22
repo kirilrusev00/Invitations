@@ -1,8 +1,11 @@
-<?php 
+<?php
+    session_start();
 
-session_start();
-session_destroy();
+    session_unset();
 
-header("Location: index.html");
+    session_destroy();
 
+    header("location:frontend/login/index.html");
+
+    exit();
 ?>

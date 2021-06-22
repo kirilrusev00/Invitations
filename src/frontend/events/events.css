@@ -11,6 +11,11 @@ body{
     background-color:#e2ebf1;
     
 }
+#main{
+    display:flex;
+    flex-flow:row wrap;
+    justify-content: space-around;
+}
 
 #main-title{
     color:#003d7ee3;
@@ -21,42 +26,52 @@ body{
     margin-left:15px;
     }
     
-.events-accepted{
-    width: 95%; 
-    position: relative;
-    background: #FFF;
-    border-radius: 10px;
-    margin:20px;
-    box-shadow: 0 0 5px rgba(0,0,0,.3);
-    /* padding: 40px 30px; */
-}
+    .accepted{
+        padding: 5px 20px 15px 20px;
+        box-sizing: border-box; 
+        margin-top:40px;
+        width: 600px;
+        background: white;
+        border-style: solid;
+        border-radius: 7px;
+        border-color: #003d7ee3;
+        box-shadow: 0 0 5px rgba(0,0,0,.3);
+        border-width: 1.5px;
+    }
 
-.events-waiting{
-    width: 95%; 
-    position: relative;
-    background: #FFF;
-    border-radius: 10px;
-    margin:20px;
-    box-shadow: 0 0 5px rgba(0,0,0,.3);
-    /* padding: 40px 30px; */
-}
+    .waiting{
+        padding: 5px 20px 15px 20px;
+        box-sizing: border-box; 
+        margin-top:40px;
+        width: 600px;
+        background: white;
+        border-style: solid;
+        border-radius: 7px;
+        border-color: #003d7ee3;
+        box-shadow: 0 0 5px rgba(0,0,0,.3);
+        border-width: 1.5px;
+    }
 
-.container .events-accepted-text {
+.events-accepted-text {
     color: #003d7ee3;
+    border-bottom: 1px solid #cfcece;
     font-weight: bold;
     font-size: 25px;
     margin-top:2px;
     padding-left:8px;
+    text-align: center;
     display: block;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.container .events-waiting-text {
+.events-waiting-text {
     color: #003d7ee3;
+    border-bottom: 1px solid #cfcece;
     font-weight: bold;
     font-size: 25px;
     margin-top:2px;
     padding-left:8px;
+    text-align: center;
     display: block;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
