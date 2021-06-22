@@ -20,6 +20,7 @@ body{
     text-align: center;
     margin-left:15px;
     }
+    
 .events-accepted{
     width: 95%; 
     position: relative;
@@ -88,5 +89,5 @@ body{
     display: -ms-flexbox;
     display: flex;
     place-content: space-between;
-    color: rgb(60,179,113);
+    color: #003d7ee3;
 }

@@ -13,41 +13,42 @@
 
 <body>
     <header class="header">
-        <h1>Моят профил</h1>
-    </header>
-
-<section id="my-information" class="my-information">
-    <header>
-        <h2>За мен</h2>
+        <h1 id="main-title">Моят профил</h1>
         <nav>
-            <button id="home">Начало</button>
-            <button id="profilr">Профил</button>
+            <button id="profile">Профил</button>
+            <button id="events">Събития</button>
             <button id="logout">Изход</button>
         </nav>
     </header>
-    
+
+    <main>
+    <section id="my-information" class="my-information">
     <form id="info" class="info" >
+
             <label class="text-field" for="username">Потребителско име:</label>
-
             <label class="text-field" for="password">Парола:</label>
-
             <label class="text-field" for="firstName">Име:</label>
-
             <label class="text-field" for="lastName">Фамилия:</label>
-
             <label class="text-field" for="email">Имейл:</label>
-
             <label class="text-field" for="speciality">Специалност:</label>
-
             <label class="text-field" for="faculty">Факултетен номер:</label>
-
             <label class="text-field" for="course">Курс:</label>
         
     </form>
-</section>
-<section id="my-events" class="my-events">
-    <h2>Събития</h2>
 
-</section>
+    <form id="add-event-form" class="add-event-form">
+
+        <h1 class="add-event-text" >Добави събитие</h1>
+        <input class="input-group" type="text" placeholder="Име" name="name" required>
+        <input class="input-group" type="text" placeholder="Място" name="venue" required>
+        <input class="input-group" type="datetime-local" placeholder="Начало" name="startTime" required>
+        <input class="input-group" type="datetime-local" placeholder="Край" name="endTime" required>
+        <input class="input-group" type="text" placeholder="Линк към онлайн среща" name="meetingLink">
+        <input class="input-group" type="text" placeholder="Парола за онлайн среща" name="meetingPassword">
+        <button class="btn" id="login-button" type="submit">Добавяне</button>
+        <p id="user-message"></p>
+      </form>
+    </section>
+</main>
 </body>
 </html>
