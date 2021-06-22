@@ -6,29 +6,86 @@
 }
 
 body {
-    width: 100%;
-    margin-top:10px;
-    background-color:#d4e6f1;
-    display: flex;
-    justify-content: center;
-
+    margin: 0;
+    padding: 0;
+    background-color:#e2ebf1;
 }
 
-h1{
+#main-title{
+    color:#003d7ee3;
+    color: #003d7ee3;
+    font-weight: bold;
+    font-size: 32px;
     text-align: center;
-    font-size: 35px;
-    margin: 5px 15px;
-}
+    margin-left:15px;
+    }
 
-.info {
-    
-    background: #FFF;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,.3);
-    padding: 40px 30px;
-}
-
-.text-field{
+.info{
+    width: 95%; 
     position: relative;
-    margin: 10px 0;
+    background: #FFF;
+    border-radius: 10px;
+    margin:20px;
+    box-shadow: 0 0 5px rgba(0,0,0,.3);
+    /* padding: 40px 30px; */
+}
+
+.add-event-form{
+    width: 50%; 
+    position: absolute;
+    margin-left:30%;
+    background: #FFF;
+    border-radius: 10px;
+    margin:20px;
+    box-shadow: 0 0 5px rgba(0,0,0,.3);
+    /* padding: 40px 30px; */
+}
+
+.add-event-form input{
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid silver;
+    margin-left: -3px;
+}
+
+.info .text-field{
+    position: relative;
+    margin: 20px 0;
+    color: #003d7ee3;
+    font-weight: bold;
+}
+
+#profile, #events, #logout {
+    border: 2px solid #003d7ee3;
+    color: #003d7ee3;
+    background: white;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    width: 130px;
+    padding: 5px 12px;
+    margin-top: 5px;
+    margin-left: 6px;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#profile:hover, #events:hover, #logout:hover{
+    color: white;
+    background: #003d7ee3;
+    font-weight: bold;
+    
+}
+
+.header{
+    background-color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    place-content: space-between;
+    color: #003d7ee3;
 }
