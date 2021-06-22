@@ -8,7 +8,7 @@
 body {
     width: 100%;
     min-height: 100vh;
-    background-color:#d4e6f1;
+    background-color:#e2ebf1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +16,7 @@ body {
 
 .container {
     width: 450px;
-    min-height: 400px;
+    /* min-height: 400px; */
     background: #FFF;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0,0,0,.3);
@@ -34,13 +34,13 @@ body {
 }
 
 
-.container .login-email .input-group {
+.input-group {
     width: 100%;
     height: 40px;
     margin-bottom: 25px;
 }
 
-.container .login-email .input-group input {
+input {
     width: 100%;
     height: 100%;
     border: 2px solid #e7e7e7;
@@ -52,11 +52,11 @@ body {
     transition: .3s;
 }
 
-.container .login-email .input-group input:focus, .container .login-email .input-group input:valid {
+ input:focus, input:valid {
     border-color: #003c7e;
 }
 
-.container .login-email .input-group .btn {
+.btn {
     display: block;
     width: 100%;
     height: 52px;
@@ -72,19 +72,19 @@ body {
     transition: .3s;
 }
 
-.container .login-email .input-group .btn:hover {
+.btn:hover {
     transform: translateY(-5px);
     background: #003c7e;
 }
 
-.login-register-text {
+.login-under-text {
     color: #111;
     font-weight: 600;
-    padding-top:15px;
-    padding-left: 50px;
+    padding-top:30px;
+    padding-left: 35px;
 }
 
-.login-register-text a {
+.login-under-text a {
     text-decoration: none;
     color: #003c7e;
 }
@@ -92,11 +92,5 @@ body {
 @media (max-width: 430px) {
     .container {
         width: 300px;
-    }
-    .container .login-social {
-        display: block;
-    }
-    .container .login-social a {
-        display: block;
     }
 }

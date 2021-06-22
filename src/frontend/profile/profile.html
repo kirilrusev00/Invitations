@@ -21,10 +21,11 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
     <section id="my-information" class="my-information">
     <form id="info" class="info" >
 
+        <h1 class="my-information-text" >Моята информация</h1>
             <label class="text-field" for="username">Потребителско име:</label>
             <label class="text-field" for="password">Парола:</label>
             <label class="text-field" for="firstName">Име:</label>
@@ -35,20 +36,23 @@
             <label class="text-field" for="course">Курс:</label>
         
     </form>
-
-    <form id="add-event-form" class="add-event-form">
-
-        <h1 class="add-event-text" >Добави събитие</h1>
-        <input class="input-group" type="text" placeholder="Име" name="name" required>
-        <input class="input-group" type="text" placeholder="Място" name="venue" required>
-        <input class="input-group" type="datetime-local" placeholder="Начало" name="startTime" required>
-        <input class="input-group" type="datetime-local" placeholder="Край" name="endTime" required>
-        <input class="input-group" type="text" placeholder="Линк към онлайн среща" name="meetingLink">
-        <input class="input-group" type="text" placeholder="Парола за онлайн среща" name="meetingPassword">
-        <button class="btn" id="login-button" type="submit">Добавяне</button>
-        <p id="user-message"></p>
-      </form>
     </section>
+    <section id="add-event" class="add-event">
+        <form id="add-event-form" class="add-event-form">
+
+            <h1 class="add-event-text" >Добави събитие</h1>
+            <input class="input-group" type="text" placeholder="Име" name="name" required>
+            <input class="input-group" type="text" placeholder="Място" name="venue" required>
+            <input class="input-group" type="text" placeholder="Начало" name="startTime" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" required>
+            <input class="input-group" type="text" placeholder="Край" name="endTime" onfocus="(this.type='datetime-local')" onblur="(this.type='text')" >
+            <input class="input-group" type="text" placeholder="Линк към онлайн среща" name="meetingLink">
+            <input class="input-group" type="text" placeholder="Парола за онлайн среща" name="meetingPassword">
+            <button class="btn" id="login-button" type="submit">Добавяне</button>
+            <p id="user-message"></p>
+          </form>
+    </section>
+
+    
 </main>
 </body>
 </html>

@@ -22,13 +22,13 @@
                        $recipient = $_POST['email'];
                        $subject = $_POST['subject'];
                        $message = $_POST['message'];
-                       $sender = "From: shahiprem7890@gmail.com";
+                       $sender = "From: webinvitations2021@gmail.com";
                        //if user leave empty field among one of them
                        if(empty($recipient) || empty($subject) || empty($message)){
                            ?>
                            <!-- display an alert message if one of them field is empty -->
                             <div class="alert alert-danger text-center">
-                                <?php echo "All inputs are required!" ?>
+                                <?php echo "Всички полета трябва да се попълнят!" ?>
                             </div>
                            <?php
                         }else{
@@ -37,7 +37,7 @@
                             ?>
                             <!-- display a success message if once mail sent sucessfully -->
                             <div class="alert alert-success text-center">
-                                <?php echo "Your mail successfully sent to $recipient"?>
+                                <?php echo "Имейлът е успешно изпратен до $recipient"?>
                             </div>
                            <?php
                            $recipient = "";
@@ -45,7 +45,7 @@
                             ?>
                             <!-- display an alert message if somehow mail can't be sent -->
                             <div class="alert alert-danger text-center">
-                                <?php echo "Failed while sending your mail!" ?>
+                                <?php echo "Грешка при изпращане на имейла!" ?>
                             </div>
                            <?php
                            }

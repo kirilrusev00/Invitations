@@ -57,6 +57,27 @@ logoutBtn.addEventListener('click', () => {
   logout();
 });
 
+function logout() {
+  fetch('../../logout.php', {
+    method: 'GET'
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Error logout user.');
+      }
+      return response.json();
+    })
+    .then(response => {
+      if (response.success) {
+        redirect('../login/index.html');
+      }
+    })
+    .catch(error => {
+      const message = 'Error logout user.';
+      console.error(message);
+    });
+}
+
 function redirect(path) {
     window.location = path;
   }

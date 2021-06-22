@@ -4,55 +4,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script defer src="profile.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <!-- <script defer src=""></script> -->
+  <link rel="stylesheet" type="text/css" href="./register.css">
 
-  <title>Покани</title>
+  <title>Регистрация</title>
 </head>
 
 <body>
-  <div class="container">
-    <form action="" method="POST" class="login-email">
-      <p class="login-text" style="font-size: 2rem; font-weight: 800;">Регистрация</p>
+  <section class="container">
+    <form id="register-form" class="register-form">
+      <h1 class="register-text" style="font-size: 2rem; font-weight: 800;">Регистрация</h1>
 
-      <div class="input-group">
-        <input type="email" placeholder="Имейл" name="email" value="<?php echo $email; ?>" required>
+        <input class="input-group" type="email" placeholder="Имейл" name="email"  required>
         <p class="error" id="erroremail" ></p>
-      </div>
-      <div class="input-group">
-        <input type="text" placeholder="Име" name="first_name" value="<?php echo $first_name; ?>" required>
+
+        <input type="text" class="input-group" placeholder="Име" name="first_name"  required>
         <p class="error" id="errorname" ></p>
-      </div>
-      <div class="input-group">
-        <input type="text" placeholder="Фамилия" name="last_name" value="<?php echo $last_name; ?>" required>
+
+        <input type="text" class="input-group" placeholder="Фамилия" name="last_name" required>
         <p class="error" id="errorfamilyname" ></p>
-      </div>
-      <div class="input-group">
-        <input type="text" placeholder="Факултетен номер" name="fn" value="<?php echo $fn; ?>" required>
+
+        <input type="text" class="input-group" placeholder="Факултетен номер" name="fn"  required>
         <p class="error" id="errornumber" ></p>
-      </div>
-      <div class="input-group">
-        <input type="text" placeholder="Специалност" name="specialty" value="<?php echo $specialty; ?>" required>
+
+        <input type="text" class="input-group" placeholder="Специалност" name="specialty" required>
         <p class="error" id="errorspecialty" ></p>
-      </div>
-      <div class="input-group">
-        <input type="number" placeholder="Курс" name="course" min="1" max="4" value="<?php echo $course; ?>" required>
+
+        <input type="number" class="input-group" placeholder="Курс" name="course" min="1" max="4" required>
         <p class="error" id="errorcourse" ></p>
-      </div>
-      <div class="input-group">
-        <input type="password" placeholder="Парола" name="password" value="<?php echo $_POST['password']; ?>" required>
+
+        <input type="password" class="input-group" placeholder="Парола" name="password" required>
         <p class="error" id="errorpassword" ></p>
-      </div>
-      <div class="input-group">
-        <input type="password" placeholder="Потвърди парола" name="cpassword" value="<?php echo $_POST['cpassword']; ?>" required>
+
+        <input type="password" class="input-group" placeholder="Потвърди парола" name="cpassword" required>
         <p class="error" id="errorpassword2" ></p>
-      </div>
-      <div class="input-group">
-        <button name="submit" class="btn">Регистрация</button>
-      </div>
-      <p class="login-register-text">Вече имаш профил? <a href="index.php">Влез в профила си</a></p>
+
+        <button name="submit" class="btn" id="register-button">Регистрация</button>
+
+      <p class="register-under-text">Вече имаш профил? <a href="index.php">Влез в профила си</a></p>
     </form>
-  </div>
+  </section>
 </body>
 
 </html>
