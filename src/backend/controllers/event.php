@@ -39,4 +39,8 @@ class EventController
       "meeting_password" => $event->meetingPassword
     ]);
   }
+
+  function getEvent($eventId) {
+    return $this->eventService->getEventById($eventId)["data"];
+  }
 }

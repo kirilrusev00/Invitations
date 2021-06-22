@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- <link rel="stylesheet" type="text/css" href="./events.css"> -->
+  <script src="event.js" defer></script>
+  <title>Събития</title>
+</head>
+
+<body>
+    <header class="header">
+        <!-- <h1 id="main-title">Моите събития</h1> -->
+        <nav>
+            <button id="profile">Профил</button>
+            <button id="events">Събития</button>
+            <button id="logout">Изход</button>
+        </nav>
+    </header>
+
+    <main>
+  <section class="container" id="event-info" style="display: none;">
+    <h1 id="event-name"></h1>
+    <h2 id="venue"></h2>
+    <h2 id="start-time"></h2>
+    <h2 id="end-time"></h2>
+    <h2 id="meeting-link"></h2>
+    <h2 id="meeting-password"></h2>
+  </section>
+  <section class="container" id="upload-files" style="display: none;">
+    <h2>Добави ресурси: </h2>
+    <form action="../../backend/endpoints/upload-files.php" method="post" enctype="multipart/form-data">
+      Изберете файлове за качване:
+      <input type="file" name="files[]" multiple>
+      <input type="submit" name="submit" value="Качване">
+    </form>
+  </section>
+  <section class="container" id="response-buttons">
+
+  </section>
+  <section class="container" id="responses">
+    <h2>Отговори на поканите</h2>
+  </section>
+</main>
+</body>
+
+</html>

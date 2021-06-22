@@ -33,11 +33,15 @@ class EventService
   {
     $this->db->getConnection()->beginTransaction();
     try {
-      $sql = "SELECT * FROM users WHERE id=:id";
+      $sql = "SELECT * FROM events WHERE id=:id";
       $getEventById = $this->db->getConnection()->prepare($sql);
       $getEventById->execute(["id" => $id]);
+      $result = $getEventById->fetch(PDO::FETCH_ASSOC);
+      if (empty($result)) {
+        $result = "";
+      }
       $this->db->getConnection()->commit();
-      return array("success" => true, "data" => $getEventById);
+      return array("success" => true, "data" => $result);
     } catch (PDOException $e) {
       $this->db->getConnection()->rollBack();
       return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
