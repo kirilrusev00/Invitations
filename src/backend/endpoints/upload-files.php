@@ -3,11 +3,16 @@
 
     require_once(realpath(dirname(__FILE__) . '/../controllers/resource.php'));
 
+    $referer = $_SERVER['HTTP_REFERER'];
+    header("Location: $referer");
+
     $resourceController = new ResourceController();
+
+    $eventId = $_GET['id'];
 
     $files = $_FILES;
     try {
-        $resourceController->addResources($files);
+        $resourceController->addResources($files, $eventId);
     } catch (Exception $e) {
         echo json_encode([
             'success' => false,
@@ -18,6 +23,6 @@
 
     echo json_encode([
         'success' => true,
-        'message' => "The event is created successfully.",
+        'message' => "The resources are uploaded successfully.",
     ]);
 ?>

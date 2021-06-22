@@ -5,6 +5,7 @@ class ResourceService
 {
   private $db;
   private $targetDir = "uploads/";
+  private $fullTargetDirPath = '../../backend/endpoints/uploads/';
   private $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf');
 
   function __construct()
@@ -24,6 +25,14 @@ class ResourceService
       $fileName = basename($files['files']['name'][$key]);
       $targetFilePath = $this->targetDir . $fileName;
 
+      if (file_exists($targetFilePath)) {
+        $errorUpload .= "File" . $files['files']['name'][$key] . " already exists." . ' | ';
+      }
+
+      if ($files['files']["size"] > 500000) {
+        $errorUpload .= "File" . $files['files']['name'][$key] . " is too large." . ' | ';
+      }
+
       // Check whether file type is valid 
       $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
       if (in_array($fileType, $this->allowTypes)) {
@@ -32,7 +41,7 @@ class ResourceService
           // Image db insert sql 
 
           // event_id is 1 for now
-          $insertValuesSQL .= "('" . $fileName . "', NOW(), 1),";
+          $insertValuesSQL .= "('" . $fileName . "', NOW(), '" . $eventId . "'),";
         } else {
           $errorUpload .= $files['files']['name'][$key] . ' | ';
         }
@@ -59,45 +68,29 @@ class ResourceService
       $statusMsg = "Неуспешно качване! " . $errorMsg;
     }
   }
-    // try {
-    //   $valuesToInsertInSql = $errorUpload = $errorUploadType = '';
+  
+  function getAllResourcesByEventId($eventId) {
+    $this->db->getConnection()->beginTransaction();
+    try {
+      $sql = "SELECT * FROM resources WHERE event_id=:eventId ORDER BY id DESC";
+      $getAllResourcesByEventId = $this->db->getConnection()->prepare($sql);
+      $getAllResourcesByEventId->execute(["eventId" => $eventId]);
+      $this->db->getConnection()->commit();
 
-    //   $sql = "INSERT INTO resourcres (file_name, event_id) VALUES (:file_name, :event_id)";
-    //   $insert = $this->db->getConnection()->prepare($sql);
+            $result = array();
+            foreach ($getAllResourcesByEventId as $resource) {
+              //echo $resource;
+              $imageURL = $this->fullTargetDirPath . $resource["file_name"];
+              //echo $imageURL;
+              array_push($result, $imageURL);
+            }
 
-    //   foreach ($files['files']['name'] as $key => $val) {
-    //     // File upload path 
-    //     $fileName = basename($files['files']['name'][$key]);
-    //     $targetFilePath = $this->targetDir . $fileName;
+            //return $result;
 
-    //     // Check whether file type is valid 
-    //     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-    //     if (in_array($fileType, $this->allowTypes)) {
-    //       // Upload file to server 
-    //       if (move_uploaded_file($files["files"]["tmp_name"][$key], $targetFilePath)) {
-    //         $valuesToInsertInSql .= "('" . $fileName . "', '" . $eventId . "')";
-    //         $insert->execute(array(':file_name' => $fileName, ':event_id' => $eventId));
-    //       } else {
-    //         $errorUpload .= $files['files']['name'][$key] . ' | ';
-    //       }
-    //     } else {
-    //       $errorUploadType .= $files['files']['name'][$key] . ' | ';
-    //     }
-    //   }
-
-    //   if (!empty($errorUpload)) {
-    //     throw new Exception('Upload Error: ' . trim($errorUpload, ' | '));
-    //   }
-
-    //   if (!empty($errorUploadType)) {
-    //     throw new Exception('File Type Error: ' . trim($errorUploadType, ' | '));
-    //   }
-
-    //   return ["success" => true];
-    // } catch (PDOException $e) {
-    //   echo "exception test";
-    //   $this->db->getConnection()->rollBack();
-    //   return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
-    // }
-  // }
+      return array("success" => true, "data" => $result);
+    } catch (PDOException $e) {
+      $this->db->getConnection()->rollBack();
+      return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
+    }
+  }
 }

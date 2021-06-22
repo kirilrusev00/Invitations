@@ -29,13 +29,15 @@
     <h2 id="meeting-link"></h2>
     <h2 id="meeting-password"></h2>
   </section>
+  <section id="resources"></section>
   <section class="container" id="upload-files" style="display: none;">
     <h2>Добави ресурси: </h2>
-    <form action="../../backend/endpoints/upload-files.php" method="post" enctype="multipart/form-data">
+    <form id="upload-form" action="" method="post" enctype="multipart/form-data">
       Изберете файлове за качване:
       <input type="file" name="files[]" multiple>
       <input type="submit" name="submit" value="Качване">
     </form>
+    <p id="user-message"></p>
   </section>
   <section class="container" id="response-buttons">
 

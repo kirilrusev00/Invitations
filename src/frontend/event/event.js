@@ -10,8 +10,6 @@ window.addEventListener('load', (event) => {
     return;
   }
 
-  let isAddedByCurrentUser;
-
   fetch(`../../backend/endpoints/get-event.php?id=${eventId}`, {
     method: "GET",
   })
@@ -27,11 +25,32 @@ window.addEventListener('load', (event) => {
         document.getElementById("end-time").innerText = response.value.end_time;
         document.getElementById("meeting-link").innerText = response.value.meeting_link ? response.value.meeting_link : '';
         document.getElementById("meeting-password").innerText = response.value.meeting_password ? response.value.meeting_password : '';
-        
+
         const isAddedByCurrentUser = response.value.isAddedByCurrentUser;
+
+
+
+        fetch(`../../backend/endpoints/images-display.php?id=${eventId}`, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            if (response.success) {
+              console.log(response.value);
+              response.value.forEach(element => {
+                let elem = document.createElement("img");
+                elem.setAttribute("src", element);
+                elem.setAttribute("alt", "");
+                document.getElementById("resources").appendChild(elem);
+              });
+            }
+            console.log(response)
+          });
+
         if (isAddedByCurrentUser) {
           //console.log(isAddedByCurrentUser);
           document.getElementById("upload-files").style.display = 'block';
+          document.getElementById("upload-form").action = `../../backend/endpoints/upload-files.php?id=${eventId}`;
         }
       } else {
         document.getElementById("event-name").innerText = response.message;

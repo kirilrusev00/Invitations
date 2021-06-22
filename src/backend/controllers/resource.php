@@ -11,12 +11,16 @@ class ResourceController
     $this->resourceService = new ResourceService();
   }
 
-  function addResources($files)
+  function addResources($files, $eventId)
   {
-    $fileNames = array_filter($_FILES['files']['name']);
+    $fileNames = array_filter($files['files']['name']);
     if (empty($fileNames)) {
       throw new Exception("Choose files to upload.");
     }
-    $this->resourceService->addResources($files, 1); // to do -> not 1
+    $this->resourceService->addResources($files, $eventId); // to do -> not 1
+  }
+
+  function getAllResourcesByEventId($eventId) {
+    return $this->resourceService->getAllResourcesByEventId($eventId);
   }
 }
