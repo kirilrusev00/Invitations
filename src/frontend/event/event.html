@@ -11,43 +11,43 @@
 </head>
 
 <body>
-    <header class="header">
-        <h1 id="main-title">Събитие</h1>
-        <nav>
-            <button id="profile">Профил</button>
-            <button id="events">Събития</button>
-            <button id="logout">Изход</button>
-        </nav>
-    </header>
+  <header class="header">
+    <h1 id="main-title">Събитие</h1>
+    <nav>
+      <button id="profile">Профил</button>
+      <button id="events">Събития</button>
+      <button id="logout">Изход</button>
+    </nav>
+  </header>
 
-    <main id="main">
-  <section class="container-1" id="event-info" style="display: none;">
-    <h1 id="event-name"></h1>
-    <h2 id="venue"></h2>
-    <h2 id="start-time"></h2>
-    <h2 id="end-time"></h2>
-    <h2 id="meeting-link"></h2>
-    <h2 id="meeting-password"></h2>
-  </section>
+  <main id="main">
+    <section class="container-1" id="event-info" style="display: none;">
+      <h1 id="event-name"></h1>
+      <h2 id="venue"></h2>
+      <h2 id="start-time"></h2>
+      <h2 id="end-time"></h2>
+      <h2 id="meeting-link"></h2>
+      <h2 id="meeting-password"></h2>
+    </section>
 
-  
-  <section class="container-2" id="upload-files" style="display: none;">
-    <h2>Добави ресурси: </h2>
-    <form id="upload-form" action="" method="post" enctype="multipart/form-data">
-      Изберете файлове за качване:
-      <input  type="file" name="files[]" multiple><br>
-      <input  type="submit" name="submit" value="Качване">
-    </form>
-    <p id="user-message"></p>
-  </section>
-  <section id="resources"></section>
-  <section class="container" id="response-buttons">
 
-  </section>
-  <!-- <section class="container" id="responses">
+    <section class="container-2" id="upload-files" style="display: none;">
+      <h2>Добави ресурси</h2>
+      <form id="upload-form" action="" method="post" enctype="multipart/form-data">
+        Изберете файлове за качване:
+        <input type="file" name="files[]" multiple><br>
+        <input type="submit" name="submit" value="Качване">
+      </form>
+      <p id="user-message"></p>
+    </section>
+    <section id="resources"></section>
+    <section class="container" id="response-buttons">
+
+    </section>
+    <!-- <section class="container" id="responses">
     <h2>Отговори на поканите</h2>
   </section> -->
-</main>
+  </main>
 </body>
 
 </html>

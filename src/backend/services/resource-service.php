@@ -68,8 +68,9 @@ class ResourceService
       $statusMsg = "Неуспешно качване! " . $errorMsg;
     }
   }
-  
-  function getAllResourcesByEventId($eventId) {
+
+  function getAllResourcesByEventId($eventId)
+  {
     $this->db->getConnection()->beginTransaction();
     try {
       $sql = "SELECT * FROM resources WHERE event_id=:eventId ORDER BY id DESC";
@@ -77,15 +78,11 @@ class ResourceService
       $getAllResourcesByEventId->execute(["eventId" => $eventId]);
       $this->db->getConnection()->commit();
 
-            $result = array();
-            foreach ($getAllResourcesByEventId as $resource) {
-              //echo $resource;
-              $imageURL = $this->fullTargetDirPath . $resource["file_name"];
-              //echo $imageURL;
-              array_push($result, $imageURL);
-            }
-
-            //return $result;
+      $result = array();
+      foreach ($getAllResourcesByEventId as $resource) {
+        $imageURL = $this->fullTargetDirPath . $resource["file_name"];
+        array_push($result, $imageURL);
+      }
 
       return array("success" => true, "data" => $result);
     } catch (PDOException $e) {

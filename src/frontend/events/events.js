@@ -38,5 +38,5 @@ function logout() {
 }
 
 function redirect(path) {
-    window.location = path;
-  }
+  window.location = path;
+}

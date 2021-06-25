@@ -19,12 +19,12 @@ window.addEventListener('load', (event) => {
       if (response.success) {
         document.getElementById("event-info").style.display = 'block';
         //console.log(response.value);
-        document.getElementById("event-name").innerText = "Име: "+response.value.name;
-        document.getElementById("venue").innerText = "Място: "+response.value.venue;
-        document.getElementById("start-time").innerText = "Начало: "+ response.value.start_time;
-        document.getElementById("end-time").innerText = "Край: "+response.value.end_time;
-        document.getElementById("meeting-link").innerText = "Линк към стаята: "+response.value.meeting_link ? response.value.meeting_link : '';
-        document.getElementById("meeting-password").innerText = "Парола за стаята: "+response.value.meeting_password ? response.value.meeting_password : '';
+        document.getElementById("event-name").innerText = response.value.name;
+        document.getElementById("venue").innerText = "Място: " + response.value.venue;
+        document.getElementById("start-time").innerText = "Начало: " + response.value.start_time;
+        document.getElementById("end-time").innerText = "Край: " + response.value.end_time;
+        document.getElementById("meeting-link").innerText = "Линк към стаята: " + response.value.meeting_link ? response.value.meeting_link : '';
+        document.getElementById("meeting-password").innerText = "Парола за стаята: " + response.value.meeting_password ? response.value.meeting_password : '';
 
         const isAddedByCurrentUser = response.value.isAddedByCurrentUser;
 
@@ -36,7 +36,7 @@ window.addEventListener('load', (event) => {
           .then((response) => response.json())
           .then((response) => {
             if (response.success) {
-              console.log(response.value);
+              //console.log(response.value);
               response.value.forEach(element => {
                 let elem = document.createElement("img");
                 elem.setAttribute("src", element);
@@ -46,7 +46,7 @@ window.addEventListener('load', (event) => {
                 document.getElementById("resources").appendChild(elem);
               });
             }
-            console.log(response)
+            //console.log(response)
           });
 
         if (isAddedByCurrentUser) {
@@ -103,5 +103,5 @@ function logout() {
 }
 
 function redirect(path) {
-    window.location = path;
-  }
+  window.location = path;
+}

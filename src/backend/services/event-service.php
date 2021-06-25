@@ -1,6 +1,7 @@
 <?php
 require_once(realpath(dirname(__FILE__) . '/../db/config.php'));
 require_once(realpath(dirname(__FILE__) . '/resource-service.php'));
+require_once(realpath(dirname(__FILE__) . '/../models/event.php'));
 
 class EventService
 {
@@ -52,11 +53,29 @@ class EventService
   {
     $this->db->getConnection()->beginTransaction();
     try {
-      $sql = "SELECT * FROM events WHERE created_by=:created_by";
+      $sql = "SELECT * FROM events WHERE created_by=:created_by ORDER BY created_at";
       $getAllEventsAddedBy = $this->db->getConnection()->prepare($sql);
       $getAllEventsAddedBy->execute(["created_by" => $userId]);
       $this->db->getConnection()->commit();
-      return array("success" => true, "data" => $getAllEventsAddedBy);
+
+      $result = array();
+      foreach ($getAllEventsAddedBy as $event) {
+        array_push($result, new EventModel(
+          $event["id"], 
+          $event["start_time"], 
+          $event["end_time"], 
+          $event["venue"], 
+          $event["name"], 
+          $event["meeting_link"], 
+          $event["meeting_password"], 
+          $event["created_by"], 
+          $event["created_at"]
+        ));
+      }
+
+      return array("success" => true, "data" => $result);
+
+      //return array("success" => true, "data" => $getAllEventsAddedBy);
     } catch (PDOException $e) {
       $this->db->getConnection()->rollBack();
       return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
