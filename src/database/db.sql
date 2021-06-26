@@ -40,8 +40,9 @@ CREATE TABLE responses (
   id                INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   user_id           INT NOT NULL,
   event_id          INT NOT NULL,
-  status            ENUM('accepted','declined', 'not seen') NOT NULL DEFAULT 'not seen',
-  created_at        DATETIME NOT NULL
+  status            ENUM('going','not going', 'interested', 'invited') NOT NULL DEFAULT 'invited',
+  created_at        DATETIME NOT NULL DEFAULT NOW(),
+  updated_at        DATETIME NOT NULL DEFAULT NOW()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE

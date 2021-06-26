@@ -15,7 +15,7 @@ window.addEventListener('load', (event) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      //console.log(response);
+      console.log(response);
       if (response.success) {
         document.getElementById("event-info").style.display = 'block';
         //console.log(response.value);

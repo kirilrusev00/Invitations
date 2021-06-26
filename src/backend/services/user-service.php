@@ -37,6 +37,20 @@ class UserService {
     }
   }
 
+  function getUsersByCourseAndSpecialty($course, $specialty) {
+    $this->db->getConnection()->beginTransaction();
+    try{
+        $sql = "SELECT id FROM users WHERE course = '{$course}' AND specialty = '{$specialty}'";
+        $getUsersByCourseAndSpecialty = $this->db->getConnection()->prepare($sql);
+        $getUsersByCourseAndSpecialty->execute();
+        $this->db->getConnection()->commit();
+        return array("success" => true, "data" => $getUsersByCourseAndSpecialty);
+    } catch(PDOException $e){
+        $this->db->getConnection()->rollBack();
+        return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
+    }
+  }
+
     function getCurrentUserData() {
       $this->db->getConnection()->beginTransaction();
       try{

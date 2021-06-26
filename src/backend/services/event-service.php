@@ -1,15 +1,20 @@
 <?php
 require_once(realpath(dirname(__FILE__) . '/../db/config.php'));
-require_once(realpath(dirname(__FILE__) . '/resource-service.php'));
+require_once(realpath(dirname(__FILE__) . '/user-service.php'));
+require_once(realpath(dirname(__FILE__) . '/response-service.php'));
 require_once(realpath(dirname(__FILE__) . '/../models/event.php'));
 
 class EventService
 {
   private $db;
+  private $userService;
+  private $responseService;
 
   function __construct()
   {
     $this->db = new Database();
+    $this->userService = new UserService();
+    $this->responseService = new ResponseService();
   }
 
   function addEvent($eventData)
@@ -19,8 +24,24 @@ class EventService
       $sql = "INSERT INTO events(start_time, end_time, venue, name, meeting_link, meeting_password, created_by) VALUES(:start_time, :end_time, :venue, :name, :meeting_link, :meeting_password, '{$_SESSION['userId']}')";
       $insertPost = $this->db->getConnection()->prepare($sql);
       $insertPost->execute($eventData);
-      //$last_id = $this->db->getConnection()->lastInsertId();
-      //(new ResourceService())->addResources($last_id);
+
+      $eventId = $this->db->getConnection()->lastInsertId();
+
+      $invitedUsers = $this->userService->getUsersByCourseAndSpecialty($_SESSION['course'], $_SESSION['specialty']);
+
+      $insertResponseValues = '';
+
+      foreach ($invitedUsers["data"] as $invitedUser) {
+        if ($invitedUser['id'] !== $_SESSION['userId']) {
+          $insertResponseValues .= "('" . $invitedUser['id'] . "', '" . $eventId . "'),";
+        }
+      }
+
+      if (!empty($insertResponseValues)) {
+        $insertResponseValues = trim($insertResponseValues, ',');
+        $this->db->getConnection()->query("INSERT INTO responses(user_id, event_id) VALUES $insertResponseValues");
+      }
+
       $this->db->getConnection()->commit();
       return ["success" => true];
     } catch (PDOException $e) {
@@ -40,6 +61,9 @@ class EventService
       $result = $getEventById->fetch(PDO::FETCH_ASSOC);
       if (empty($result)) {
         $result = "";
+      } else {
+        $responses = $this->responseService->getAllResponsesFor($id);
+        $result["responses"] = $responses["data"];
       }
       $this->db->getConnection()->commit();
       return array("success" => true, "data" => $result);
@@ -61,14 +85,14 @@ class EventService
       $result = array();
       foreach ($getAllEventsAddedBy as $event) {
         array_push($result, new EventModel(
-          $event["id"], 
-          $event["start_time"], 
-          $event["end_time"], 
-          $event["venue"], 
-          $event["name"], 
-          $event["meeting_link"], 
-          $event["meeting_password"], 
-          $event["created_by"], 
+          $event["id"],
+          $event["start_time"],
+          $event["end_time"],
+          $event["venue"],
+          $event["name"],
+          $event["meeting_link"],
+          $event["meeting_password"],
+          $event["created_by"],
           $event["created_at"]
         ));
       }
