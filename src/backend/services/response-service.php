@@ -10,11 +10,11 @@ class ResponseService
     $this->db = new Database();
   }
 
-  function updateResponse($eventId, $status)
+  function updateResponse($eventId, $status, $userId)
   {
     $this->db->getConnection()->beginTransaction();
     try {
-      $sql = "UPDATE responses SET status = '{$status}', updated_at = NOW() WHERE user_id = '{$_SESSION['userId']}' AND event_id = '{$eventId}'";
+      $sql = "UPDATE responses SET status = '{$status}', updated_at = NOW() WHERE user_id = '{$userId}' AND event_id = '{$eventId}'";
       $updateResponse = $this->db->getConnection()->prepare($sql);
       $updateResponse->execute();
       $this->db->getConnection()->commit();
@@ -37,9 +37,14 @@ class ResponseService
       $getAllResponsesFor = $this->db->getConnection()->prepare($sql);
       $getAllResponsesFor->execute();
       $responsesCount = $getAllResponsesFor->fetchAll(PDO::FETCH_ASSOC);
-      $result = ["invited" => 0, "going" => 0, "not going" => 0, "interested" => 0];
+      $result = ["invited" => 0, "going" => 0, "notGoing" => 0, "interested" => 0];
       foreach ($responsesCount as $responseCount) {
-        $result[$responseCount['status']] = $responseCount['responses_count'];
+        if ($responseCount['status'] === 'not going') {
+          $result['notGoing'] = $responseCount['responses_count'];
+        }
+        else {
+          $result[$responseCount['status']] = $responseCount['responses_count'];
+        }
       }
       $this->db->getConnection()->commit();
       return ["success" => true, "data" => $result];

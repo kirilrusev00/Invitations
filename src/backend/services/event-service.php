@@ -64,7 +64,7 @@ class EventService
       $result = $getEventById->fetch(PDO::FETCH_ASSOC);
       if (empty($result)) {
         $result = "";
-      } else if (empty($result["status"])) {
+      } else if (empty($result["status"]) && $result["created_by"] != $_SESSION['userId']) {
         $result["status"] = "not invited";
       } else {
         $responses = $this->responseService->getAllResponsesFor($id);

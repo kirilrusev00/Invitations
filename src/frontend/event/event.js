@@ -28,6 +28,28 @@ window.addEventListener('load', (event) => {
 
         const isAddedByCurrentUser = response.value.isAddedByCurrentUser;
 
+        if (isAddedByCurrentUser || response.value.status !== 'not invited') {
+          document.getElementById("interested").innerText = `${response.value.responses.interested} се интересуват`;
+          document.getElementById("going").innerText = response.value.responses.going + " ще присъстват";
+          document.getElementById("not-going").innerText = response.value.responses.notGoing + " няма да присъстват";
+          document.getElementById("invited").innerText = response.value.responses.invited + " са поканени";
+        } else {
+          document.getElementById("responses").style.display = "none";
+        }
+
+        if (isAddedByCurrentUser || response.value.status === 'not invited') {
+          document.getElementById("response-buttons").style.display = "none";
+        } else {
+          if (response.value.status === 'interested') {
+            document.getElementById("interested-button").disabled = true;
+          }
+          if (response.value.status === 'going') {
+            document.getElementById("going-button").disabled = true;
+          }
+          if (response.value.status === 'not going') {
+            document.getElementById("not-going-button").disabled = true;
+          }
+        }
 
         if (isAddedByCurrentUser || response.value.status === 'going' || response.value.status === 'interested') {
           fetch(`../../backend/endpoints/images-display.php?id=${eventId}`, {
@@ -63,6 +85,46 @@ window.addEventListener('load', (event) => {
   return false;
 
 })
+
+
+function sendUpdateResponseRequest(newStatus) {
+  const url_string = window.location.href
+  const url = new URL(url_string);
+
+  const eventId = url.searchParams.get("id");
+
+  if (!eventId) {
+    return;
+  }
+
+  const formData = {
+    eventId,
+    status: newStatus
+  };
+
+  fetch("../../backend/endpoints/update-response-status.php", {
+    method: "POST",
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.success) {
+        location.reload();
+      }
+
+    });
+
+  return false;
+}
+
+const interestedButton = document.getElementById('interested-button');
+interestedButton.addEventListener('click', () => sendUpdateResponseRequest('interested'));
+
+const goingButton = document.getElementById('going-button');
+goingButton.addEventListener('click', () => sendUpdateResponseRequest('going'));
+
+const notGoingButton = document.getElementById('not-going-button');
+notGoingButton.addEventListener('click', () => sendUpdateResponseRequest('not going'));
 
 const profileBtn = document.getElementById('profile');
 
