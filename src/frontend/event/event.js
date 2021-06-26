@@ -23,8 +23,8 @@ window.addEventListener('load', (event) => {
         document.getElementById("venue").innerHTML= "<b>Място: </b>" + response.value.venue;
         document.getElementById("start-time").innerHTML = "<b>Начало: </b>" + response.value.start_time;
         document.getElementById("end-time").innerHTML = "<b>Край: </b>" + response.value.end_time;
-        document.getElementById("meeting-link").innerHTML = `<b>Линк към стаята: </b> ${response.value.meeting_link ? response.value.meeting_link : ''}`;
-        document.getElementById("meeting-password").innerHTML = `<b>Парола за стаята: </b> ${response.value.meeting_password ? response.value.meeting_password : ''}`;
+        document.getElementById("meeting-link").innerHTML = response.value.meeting_link && `<b>Линк към стаята: </b> ${response.value.meeting_link}`;
+        document.getElementById("meeting-password").innerHTML = response.value.meeting_password && `<b>Парола за стаята: </b> ${response.value.meeting_password}`;
 
         const isAddedByCurrentUser = response.value.isAddedByCurrentUser;
 
@@ -58,8 +58,8 @@ window.addEventListener('load', (event) => {
             .then((response) => response.json())
             .then((response) => {
               if (response.success) {
-                //console.log(response.value);
-                if (response.value) {
+                console.log(response);
+                if (response.value && response.value.length > 0) {
                   let resourcesSection = document.createElement("section");
                   resourcesSection.setAttribute("id", "resources");
                   document.getElementById("main").appendChild(resourcesSection);
