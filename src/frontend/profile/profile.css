@@ -15,10 +15,10 @@ body {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+  margin-bottom: 40px;
 }
 
 #main-title {
-  color: #003d7ee3;
   color: #003d7ee3;
   font-weight: bold;
   font-size: 32px;
@@ -30,6 +30,7 @@ body {
   padding: 5px 20px 15px 20px;
   box-sizing: border-box;
   margin-top: 40px;
+   min-height: 427px;
   /* margin-left:50px; */
   /* transform: translate(-50%, -50%); */
   width: 500px;
@@ -44,16 +45,20 @@ body {
 .my-information-text {
   text-align: center;
   padding: 5px 0 10px 0;
+  font-size: 26px;
   border-bottom: 1px solid #cfcece;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   color: #003d7ee3;
 }
 
-.text-field {
+
+.user-info {
   position: relative;
-  margin: 10px 0;
+  margin: 18px 0;
   color: #003d7ee3;
-  font-weight: bold;
+  font-size: 20px;
+  /* font-weight: bold; */
+  border-bottom: 1px solid #cfcece;
 }
 
 .info label {
@@ -74,7 +79,8 @@ body {
   text-align: center;
   padding: 5px 0 10px 0;
   border-bottom: 1px solid #cfcece;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 26px;
   color: #003d7ee3;
 }
 
@@ -159,5 +165,59 @@ body {
   font-weight: 700;
   cursor: pointer;
   outline: none;
-  margin-top: 8px;
+  margin-top: 20px;
+}
+
+#event-list{
+  padding: 5px 20px 5px 20px;
+  box-sizing: border-box;
+  margin-top: 40px;
+  /* margin-left:50px; */
+  /* transform: translate(-50%, -50%); */
+  width: 900px;
+  background: white;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: #003d7ee3;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  border-width: 1.5px;
+}
+
+#event-list-heading{
+  text-align: center;
+  padding: 5px 0 10px 0;
+  border-bottom: 1px solid #cfcece;
+  margin-bottom: 15px;
+  color: #003d7ee3;
+  font-size: 26px;
+}
+
+.single-event{
+  font-size: 21px;
+  color: #003d7ee3;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px 10px 20px;
+  box-sizing: border-box;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 855px;
+  background: white;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: #003d7ee3;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+  border-width: 1px;
+  text-align: center;
+  text-decoration: none;
+  /* font-weight: bold; */
+  
+}
+.events{
+  /* text-decoration: none; */
+  color: #003d7ee3;
+}
+
+.single-event:hover, a:active {
+  background-color: #e2ebf1;
 }

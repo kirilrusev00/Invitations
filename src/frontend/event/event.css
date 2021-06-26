@@ -74,15 +74,16 @@ body {
 
 .container-1 h1 {
   color: #003d7ee3;
-  font-size: 25px;
+  font-size: 26px;
   text-align: center;
   /* border-bottom: 1px solid #cfcece; */
-  margin-bottom: 25px;
+  margin-bottom: 15px;
+  margin-top: 10px;
 }
 
-.container-1 h2 {
+.container-1 p {
   color: #003d7ee3;
-  font-size: 23px;
+  font-size: 22px;
   border-bottom: 1px solid #cfcece;
 }
 
@@ -95,7 +96,7 @@ body {
   border-style: solid;
   border-radius: 7px;
   border-color: #003d7ee3;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 5px rgba(167, 139, 139, 0.3);
   border-width: 1.5px;
 }
 
@@ -107,11 +108,12 @@ body {
 }
 
 #resources {
-  margin-top: 45px;
+  margin-top: 30px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  /* align-self:flex-end; */
 }
 
 #upload-form {

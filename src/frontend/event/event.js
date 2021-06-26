@@ -20,11 +20,11 @@ window.addEventListener('load', (event) => {
         document.getElementById("event-info").style.display = 'block';
         //console.log(response.value);
         document.getElementById("event-name").innerText = response.value.name;
-        document.getElementById("venue").innerText = "Място: " + response.value.venue;
-        document.getElementById("start-time").innerText = "Начало: " + response.value.start_time;
-        document.getElementById("end-time").innerText = "Край: " + response.value.end_time;
-        document.getElementById("meeting-link").innerText = "Линк към стаята: " + response.value.meeting_link ? response.value.meeting_link : '';
-        document.getElementById("meeting-password").innerText = "Парола за стаята: " + response.value.meeting_password ? response.value.meeting_password : '';
+        document.getElementById("venue").innerHTML= "<b>Място: </b>" + response.value.venue;
+        document.getElementById("start-time").innerHTML = "<b>Начало: </b>" + response.value.start_time;
+        document.getElementById("end-time").innerHTML = "<b>Край: </b>" + response.value.end_time;
+        document.getElementById("meeting-link").innerHTML = `<b>Линк към стаята: </b> ${response.value.meeting_link ? response.value.meeting_link : ''}`;
+        document.getElementById("meeting-password").innerHTML = `<b>Парола за стаята: </b> ${response.value.meeting_password ? response.value.meeting_password : ''}`;
 
         const isAddedByCurrentUser = response.value.isAddedByCurrentUser;
 
@@ -59,12 +59,18 @@ window.addEventListener('load', (event) => {
             .then((response) => {
               if (response.success) {
                 //console.log(response.value);
+                if (response.value) {
+                  let resourcesSection = document.createElement("section");
+                  resourcesSection.setAttribute("id", "resources");
+                  document.getElementById("main").appendChild(resourcesSection);
+                }
                 response.value.forEach(element => {
                   let elem = document.createElement("img");
                   elem.setAttribute("src", element);
                   elem.setAttribute("alt", "");
-                  elem.setAttribute("style", "max-height:600px");
-                  elem.setAttribute("style", "max-width:600px");
+                  elem.setAttribute("style", "max-height:600px; max-width:600px; margin-bottom :0px;");
+                  // elem.setAttribute("style", "max-width:600px;");
+                  // elem.setAttribute("style", "margin-bottom :20px;");
                   document.getElementById("resources").appendChild(elem);
                 });
               }

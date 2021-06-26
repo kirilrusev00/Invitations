@@ -7,12 +7,12 @@ window.addEventListener('load', (event) => {
     .then((response) => response.json())
     .then((response) => {
       if (response.success && response.message === 'Current user info') {
-        document.getElementById("first-name").innerText = response.value.firstName;
-        document.getElementById("last-name").innerText = response.value.lastName;
-        document.getElementById("email").innerText = response.value.email;
-        document.getElementById("specialty").innerText = response.value.specialty;
-        document.getElementById("fn").innerText = response.value.fn;
-        document.getElementById("course").innerText = response.value.course;
+        document.getElementById("first-name").innerHTML = "<b>Име: </b>" + response.value.firstName;
+        document.getElementById("last-name").innerHTML = "<b>Фамилия: </b>" + response.value.lastName;
+        document.getElementById("email").innerHTML = "<b>Имейл: </b>" + response.value.email;
+        document.getElementById("specialty").innerHTML = "<b>Специалност: </b>" + response.value.specialty;
+        document.getElementById("fn").innerHTML = "<b>Факултетен номер: </b>" + response.value.fn;
+        document.getElementById("course").innerHTML = "<b>Курс: </b>" + response.value.course;
       }
       else {
         // redirect to login screen
@@ -26,11 +26,18 @@ window.addEventListener('load', (event) => {
     .then((response) => {
       if (response.success && response.message === 'Events by current user') {
         response.value.forEach(event => {
-          let elem = document.createElement("a");
-          elem.setAttribute("href", `../event/event.html?id=${event.id}`);
-          elem.setAttribute("target", '_blank');
-          elem.innerText = event.name;
-          document.getElementById("event-list").appendChild(elem);
+          let sectionElement = document.createElement("a");
+          sectionElement.setAttribute("id", "single-event");
+          sectionElement.setAttribute("href", `../event/event.html?id=${event.id}`);
+          sectionElement.setAttribute("target", "_blank");
+          sectionElement.setAttribute("class", "single-event");
+          let titleElement = document.createElement("p");
+          titleElement.innerHTML = `<b>${event.name}</b>`;
+          sectionElement.appendChild(titleElement);
+          let dateElement = document.createElement("p");
+          dateElement.innerText = event.startTime;
+          sectionElement.appendChild(dateElement);
+          document.getElementById("event-list").appendChild(sectionElement);
         });
       }
       else {
