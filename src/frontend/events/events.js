@@ -1,3 +1,50 @@
+window.addEventListener('load', (event) => {
+  event.preventDefault();
+
+  fetch('../../backend/endpoints/get-all-events-interested-going.php', {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      //console.log(response);
+      if (response.success && response.message === 'Events interested or going for current user') {
+        response.value.forEach(event => {
+          let elem = document.createElement("a");
+          elem.setAttribute("href", `../event/event.html?id=${event.eventId}`);
+          elem.setAttribute("target", '_blank');
+          elem.innerText = event.name;
+          document.getElementById("events-going-interested").appendChild(elem);
+        });
+      }
+      else {
+        // redirect to login screen
+      }
+    });
+
+    fetch('../../backend/endpoints/get-all-events-invited.php', {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        //console.log(response);
+        if (response.success && response.message === 'Events invited for current user') {
+          response.value.forEach(event => {
+            let elem = document.createElement("a");
+            elem.setAttribute("href", `../event/event.html?id=${event.eventId}`);
+            elem.setAttribute("target", '_blank');
+            elem.innerText = event.name;
+            document.getElementById("events-invited").appendChild(elem);
+          });
+        }
+        else {
+          // redirect to login screen
+        }
+      });
+
+  return false;
+
+})
+
 const profileBtn = document.getElementById('profile');
 
 profileBtn.addEventListener('click', () => {

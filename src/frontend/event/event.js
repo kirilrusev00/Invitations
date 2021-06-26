@@ -15,7 +15,7 @@ window.addEventListener('load', (event) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
+      //console.log(response);
       if (response.success) {
         document.getElementById("event-info").style.display = 'block';
         //console.log(response.value);
@@ -29,25 +29,26 @@ window.addEventListener('load', (event) => {
         const isAddedByCurrentUser = response.value.isAddedByCurrentUser;
 
 
-
-        fetch(`../../backend/endpoints/images-display.php?id=${eventId}`, {
-          method: "GET",
-        })
-          .then((response) => response.json())
-          .then((response) => {
-            if (response.success) {
-              //console.log(response.value);
-              response.value.forEach(element => {
-                let elem = document.createElement("img");
-                elem.setAttribute("src", element);
-                elem.setAttribute("alt", "");
-                elem.setAttribute("style", "max-height:600px");
-                elem.setAttribute("style", "max-width:600px");
-                document.getElementById("resources").appendChild(elem);
-              });
-            }
-            //console.log(response)
-          });
+        if (isAddedByCurrentUser || response.value.status === 'going' || response.value.status === 'interested') {
+          fetch(`../../backend/endpoints/images-display.php?id=${eventId}`, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((response) => {
+              if (response.success) {
+                //console.log(response.value);
+                response.value.forEach(element => {
+                  let elem = document.createElement("img");
+                  elem.setAttribute("src", element);
+                  elem.setAttribute("alt", "");
+                  elem.setAttribute("style", "max-height:600px");
+                  elem.setAttribute("style", "max-width:600px");
+                  document.getElementById("resources").appendChild(elem);
+                });
+              }
+              //console.log(response)
+            });
+        }
 
         if (isAddedByCurrentUser) {
           //console.log(isAddedByCurrentUser);

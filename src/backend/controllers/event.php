@@ -16,6 +16,16 @@ class EventController
     return $this->eventService->getAllEventsAddedBy($_SESSION["userId"]);
   }
 
+  function getAllEventsInterestedOrGoingCurrentUser()
+  {
+    return $this->eventService->getAllEventsInterestedOrGoing($_SESSION["userId"]);
+  }
+
+  function getAllEventsInvitedCurrentUser()
+  {
+    return $this->eventService->getAllEventsInvited($_SESSION["userId"]);
+  }
+
   function createEvent($event)
   {
     if (empty($event->startTime)) {

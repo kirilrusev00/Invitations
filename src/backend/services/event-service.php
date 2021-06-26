@@ -3,6 +3,7 @@ require_once(realpath(dirname(__FILE__) . '/../db/config.php'));
 require_once(realpath(dirname(__FILE__) . '/user-service.php'));
 require_once(realpath(dirname(__FILE__) . '/response-service.php'));
 require_once(realpath(dirname(__FILE__) . '/../models/event.php'));
+require_once(realpath(dirname(__FILE__) . '/../models/event-response.php'));
 
 class EventService
 {
@@ -55,15 +56,21 @@ class EventService
   {
     $this->db->getConnection()->beginTransaction();
     try {
-      $sql = "SELECT * FROM events WHERE id=:id";
+      $sql = "SELECT events.*, status FROM events 
+              LEFT JOIN responses ON responses.event_id = events.id
+              WHERE events.id=:id";
       $getEventById = $this->db->getConnection()->prepare($sql);
       $getEventById->execute(["id" => $id]);
       $result = $getEventById->fetch(PDO::FETCH_ASSOC);
       if (empty($result)) {
         $result = "";
+      } else if (empty($result["status"])) {
+        $result["status"] = "not invited";
       } else {
         $responses = $this->responseService->getAllResponsesFor($id);
         $result["responses"] = $responses["data"];
+        // $isUserInvited = $this->responseService->isCurrentUserInvited($id);
+        // $result["isUserInvited"] = $isUserInvited["data"];
       }
       $this->db->getConnection()->commit();
       return array("success" => true, "data" => $result);
@@ -94,6 +101,68 @@ class EventService
           $event["meeting_password"],
           $event["created_by"],
           $event["created_at"]
+        ));
+      }
+
+      return array("success" => true, "data" => $result);
+
+      //return array("success" => true, "data" => $getAllEventsAddedBy);
+    } catch (PDOException $e) {
+      $this->db->getConnection()->rollBack();
+      return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
+    }
+  }
+
+  function getAllEventsInterestedOrGoing($userId)
+  {
+    $this->db->getConnection()->beginTransaction();
+    try {
+      $sql = "SELECT events.*, status FROM events 
+              JOIN responses ON responses.event_id = events.id
+              WHERE responses.user_id = '{$userId}' AND responses.status = 'interested' OR responses.status = 'going'";
+      $getAllEventsInterestedOrGoing = $this->db->getConnection()->prepare($sql);
+      $getAllEventsInterestedOrGoing->execute();
+      $this->db->getConnection()->commit();
+
+      $result = array();
+      foreach ($getAllEventsInterestedOrGoing as $event) {
+        array_push($result, new EventResponseModel(
+          $event["id"],
+          $event["start_time"],
+          $event["name"],
+          $event["created_by"],
+          $event["status"]
+        ));
+      }
+
+      return array("success" => true, "data" => $result);
+
+      //return array("success" => true, "data" => $getAllEventsAddedBy);
+    } catch (PDOException $e) {
+      $this->db->getConnection()->rollBack();
+      return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
+    }
+  }
+
+  function getAllEventsInvited($userId)
+  {
+    $this->db->getConnection()->beginTransaction();
+    try {
+      $sql = "SELECT events.*, status FROM events 
+              JOIN responses ON events.id = responses.event_id
+              WHERE responses.user_id = '{$userId}' AND responses.status = 'invited'";
+      $getAllEventsInvited = $this->db->getConnection()->prepare($sql);
+      $getAllEventsInvited->execute();
+      $this->db->getConnection()->commit();
+
+      $result = array();
+      foreach ($getAllEventsInvited as $event) {
+        array_push($result, new EventResponseModel(
+          $event["id"],
+          $event["start_time"],
+          $event["name"],
+          $event["created_by"],
+          $event["status"]
         ));
       }
 
