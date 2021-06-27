@@ -17,7 +17,7 @@ class ResourceController
     if (empty($fileNames)) {
       throw new Exception("Choose files to upload.");
     }
-    $this->resourceService->addResources($files, $eventId); // to do -> not 1
+    $this->resourceService->addResources($files, $eventId);
   }
 
   function getAllResourcesByEventId($eventId) {

@@ -3,7 +3,6 @@ window.addEventListener('load', (event) => {
 
   const url_string = window.location.href
   const url = new URL(url_string);
-
   const eventId = url.searchParams.get("id");
 
   if (!eventId) {
@@ -17,81 +16,120 @@ window.addEventListener('load', (event) => {
     .then((response) => {
       //console.log(response);
       if (response.success) {
-        document.getElementById("event-info").style.display = 'block';
-        //console.log(response.value);
-        document.getElementById("event-name").innerText = response.value.name;
-        document.getElementById("venue").innerHTML= "<b>Място: </b>" + response.value.venue;
-        document.getElementById("start-time").innerHTML = "<b>Начало: </b>" + response.value.start_time;
-        document.getElementById("end-time").innerHTML = "<b>Край: </b>" + response.value.end_time;
-        document.getElementById("meeting-link").innerHTML = response.value.meeting_link && `<b>Линк към стаята: </b> ${response.value.meeting_link}`;
-        document.getElementById("meeting-password").innerHTML = response.value.meeting_password && `<b>Парола за стаята: </b> ${response.value.meeting_password}`;
-
         const isAddedByCurrentUser = response.value.isAddedByCurrentUser;
 
-        if (isAddedByCurrentUser || response.value.status !== 'not invited') {
-          document.getElementById("interested").innerText = `${response.value.responses.interested} се интересуват`;
-          document.getElementById("going").innerText = response.value.responses.going + " ще присъстват";
-          document.getElementById("not-going").innerText = response.value.responses.notGoing + " няма да присъстват";
-          document.getElementById("invited").innerText = response.value.responses.invited + " са поканени";
-        } else {
-          document.getElementById("responses").style.display = "none";
-        }
-
-        if (isAddedByCurrentUser || response.value.status === 'not invited') {
-          document.getElementById("response-buttons").style.display = "none";
-        } else {
-          if (response.value.status === 'interested') {
-            document.getElementById("interested-button").disabled = true;
-          }
-          if (response.value.status === 'going') {
-            document.getElementById("going-button").disabled = true;
-          }
-          if (response.value.status === 'not going') {
-            document.getElementById("not-going-button").disabled = true;
-          }
-        }
-
-        if (isAddedByCurrentUser || response.value.status === 'going' || response.value.status === 'interested') {
-          fetch(`../../backend/endpoints/images-display.php?id=${eventId}`, {
-            method: "GET",
-          })
-            .then((response) => response.json())
-            .then((response) => {
-              if (response.success) {
-                console.log(response);
-                if (response.value && response.value.length > 0) {
-                  let resourcesSection = document.createElement("section");
-                  resourcesSection.setAttribute("id", "resources");
-                  document.getElementById("main").appendChild(resourcesSection);
-                }
-                response.value.forEach(element => {
-                  let elem = document.createElement("img");
-                  elem.setAttribute("src", element);
-                  elem.setAttribute("alt", "");
-                  elem.setAttribute("style", "max-height:600px; max-width:600px; margin-bottom :0px;");
-                  // elem.setAttribute("style", "max-width:600px;");
-                  // elem.setAttribute("style", "margin-bottom :20px;");
-                  document.getElementById("resources").appendChild(elem);
-                });
-              }
-              //console.log(response)
-            });
-        }
-
-        if (isAddedByCurrentUser) {
-          //console.log(isAddedByCurrentUser);
-          document.getElementById("upload-files").style.display = 'block';
-          document.getElementById("upload-form").action = `../../backend/endpoints/upload-files.php?id=${eventId}`;
-        }
+        showEventInfo(response.value);
+        showResponses(isAddedByCurrentUser, response.value.status, response.value.responses);
+        showResponseButtons(isAddedByCurrentUser, response.value.status);
+        showUploadedResources(eventId, isAddedByCurrentUser, response.value.status);
+        showUploadFilesForm(eventId, isAddedByCurrentUser);
       } else {
         document.getElementById("event-name").innerText = response.message;
       }
     });
 
   return false;
-
 })
 
+function showEventInfo(eventInfo) {
+  document.getElementById("event-info").style.display = 'block';
+  document.getElementById("event-name").innerText = eventInfo.name;
+  document.getElementById("venue").innerHTML = "<b>Място: </b>" + eventInfo.venue;
+  document.getElementById("start-time").innerHTML = "<b>Начало: </b>" + eventInfo.start_time;
+  document.getElementById("end-time").innerHTML = "<b>Край: </b>" + eventInfo.end_time;
+  document.getElementById("meeting-link").innerHTML = eventInfo.meeting_link && `<b>Линк към стаята: </b> ${eventInfo.meeting_link}`;
+  document.getElementById("meeting-password").innerHTML = eventInfo.meeting_password && `<b>Парола за стаята: </b> ${eventInfo.meeting_password}`;
+}
+
+function showResponses(isAddedByCurrentUser, status, responses) {
+  if (isAddedByCurrentUser || status !== 'not invited') {
+    document.getElementById("interested").innerText = `${responses.interested} се интересуват`;
+    document.getElementById("going").innerText = responses.going + " ще присъстват";
+    document.getElementById("not-going").innerText = responses.notGoing + " няма да присъстват";
+    document.getElementById("invited").innerText = responses.invited + " са поканени";
+  } else {
+    document.getElementById("responses").style.display = "none";
+  }
+}
+
+function showResponseButtons(isAddedByCurrentUser, status) {
+  if (isAddedByCurrentUser || status === 'not invited') {
+    document.getElementById("response-buttons").style.display = "none";
+  } else {
+    if (status === 'interested') {
+      document.getElementById("interested-button").disabled = true;
+    }
+    if (status === 'going') {
+      document.getElementById("going-button").disabled = true;
+    }
+    if (status === 'not going') {
+      document.getElementById("not-going-button").disabled = true;
+    }
+  }
+}
+
+function showUploadedResources(eventId, isAddedByCurrentUser, status) {
+  if (isAddedByCurrentUser || status === 'going' || status === 'interested') {
+    fetch(`../../backend/endpoints/get-resources.php?id=${eventId}`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.success) {
+          //console.log(response);
+          if (response.value && response.value.length > 0) {
+            createResourcesSection();
+
+            response.value.forEach(visualizeResources);
+          }
+        }
+        //console.log(response)
+      });
+  }
+}
+
+const visualizeResources = (resourceLink) => {
+  let imageLink = document.createElement("a");
+  imageLink.setAttribute("href", resourceLink);
+  imageLink.setAttribute("target", "_blank");
+
+  let imagePath = resourceLink.split('.');
+  const imageExtension = imagePath[imagePath.length - 1];
+
+  let image = document.createElement("img");
+  imageExtension === 'pdf' ?
+    image.setAttribute("src", "../../images/pdf_file_icon.svg") :
+    image.setAttribute("src", resourceLink);
+  image.setAttribute("alt", "");
+  image.setAttribute("class", "resource-image");
+
+  let imageName = document.createElement("p");
+  imagePath = resourceLink.split('/');
+  imageName.innerText = imagePath[imagePath.length - 1];
+
+  imageLink.appendChild(image);
+  imageLink.appendChild(imageName);
+  document.getElementById("resources").appendChild(imageLink);
+}
+
+function createResourcesSection() {
+  let resourcesSection = document.createElement("section");
+  resourcesSection.setAttribute("id", "resources");
+
+  let resourcesHeading = document.createElement("h2");
+  resourcesHeading.setAttribute("id", "resources-heading");
+  resourcesHeading.innerText = "Ресурси";
+
+  resourcesSection.appendChild(resourcesHeading);
+  document.getElementById("main").appendChild(resourcesSection);
+}
+
+function showUploadFilesForm(eventId, isAddedByCurrentUser) {
+  if (isAddedByCurrentUser) {
+    document.getElementById("upload-files").style.display = 'block';
+    document.getElementById("upload-form").action = `../../backend/endpoints/upload-files.php?id=${eventId}`;
+  }
+}
 
 function sendUpdateResponseRequest(newStatus) {
   const url_string = window.location.href
