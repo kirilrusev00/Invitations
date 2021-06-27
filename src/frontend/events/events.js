@@ -34,7 +34,7 @@ window.addEventListener('load', (event) => {
           response.value.forEach(event => {
             let sectionElement = document.createElement("a");
             sectionElement.setAttribute("id", "invited-event");
-            sectionElement.setAttribute("href", `../event/event.html?id=${event.id}`);
+            sectionElement.setAttribute("href", `../event/event.html?id=${event.eventId}`);
             sectionElement.setAttribute("target", "_blank");
             sectionElement.setAttribute("class", "invited-event");
             let titleElement = document.createElement("p");
