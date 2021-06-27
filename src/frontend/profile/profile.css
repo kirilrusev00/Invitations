@@ -221,3 +221,17 @@ body {
 .single-event:hover, a:active {
   background-color: #e2ebf1;
 }
+
+#my-profile {
+  color: #003d7ee3;
+  font-size: 42px;
+  text-align: center;
+  /* border-bottom: 3px solid  #003d7ee3; */
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}

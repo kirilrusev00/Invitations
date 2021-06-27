@@ -63,12 +63,13 @@ window.addEventListener('load', (event) => {
                   let resourcesSection = document.createElement("section");
                   resourcesSection.setAttribute("id", "resources");
                   document.getElementById("main").appendChild(resourcesSection);
+        
                 }
                 response.value.forEach(element => {
                   let elem = document.createElement("img");
                   elem.setAttribute("src", element);
                   elem.setAttribute("alt", "");
-                  elem.setAttribute("style", "max-height:600px; max-width:600px; margin-bottom :0px;");
+                  elem.setAttribute("style", "max-height:600px; max-width:600px; margin :20px;");
                   // elem.setAttribute("style", "max-width:600px;");
                   // elem.setAttribute("style", "margin-bottom :20px;");
                   document.getElementById("resources").appendChild(elem);
