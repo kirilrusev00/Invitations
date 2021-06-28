@@ -7,17 +7,24 @@ window.addEventListener('load', (event) => {
     .then((response) => response.json())
     .then((response) => {
       //console.log(response);
+    
+
       if (response.success && response.message === 'Events interested or going for current user') {
         response.value.forEach(event => {
-          let elem = document.createElement("a");
-          elem.setAttribute("href", `../event/event.html?id=${event.eventId}`);
-          elem.setAttribute("target", '_blank');
-          elem.innerText = event.name;
-          document.getElementById("events-going-interested").appendChild(elem);
+          let sectionElement = document.createElement("a");
+          sectionElement.setAttribute("id", "accepted-event");
+          sectionElement.setAttribute("href", `../event/event.html?id=${event.eventId}`);
+          sectionElement.setAttribute("target", "_blank");
+          sectionElement.setAttribute("class", "accepted-event");
+          let titleElement = document.createElement("p");
+          titleElement.innerHTML = `<b>${event.name}</b>`;
+          sectionElement.appendChild(titleElement);
+          let dateElement = document.createElement("p");
+          dateElement.innerText = event.startTime;
+          sectionElement.appendChild(dateElement);
+          document.getElementById("events-going-interested").appendChild(sectionElement);
         });
       }
-
-
       else {
         // redirect to login screen
       }

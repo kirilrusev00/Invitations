@@ -43,10 +43,10 @@ function showEventInfo(eventInfo) {
 
 function showResponses(isAddedByCurrentUser, status, responses) {
   if (isAddedByCurrentUser || status !== 'not invited') {
-    document.getElementById("interested").innerText = `${responses.interested} се интересуват`;
-    document.getElementById("going").innerText = responses.going + " ще присъстват";
-    document.getElementById("not-going").innerText = responses.notGoing + " няма да присъстват";
-    document.getElementById("invited").innerText = responses.invited + " са поканени";
+    document.getElementById("interested").innerText = `${responses.interested} заинтересован/и ➕`;
+    document.getElementById("going").innerText = responses.going + " потвърдил/и ✔️";
+    document.getElementById("not-going").innerText = responses.notGoing + " отказал/и ❌";
+    document.getElementById("invited").innerText = responses.invited + " чакащ/и ❔ ";
   } else {
     document.getElementById("responses").style.display = "none";
   }

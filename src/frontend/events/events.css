@@ -127,7 +127,7 @@ body {
   border-style: solid;
   border-radius: 10px;
   border-color: #003d7ee3;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
   border-width: 1px;
   text-align: center;
   text-decoration: none;
@@ -155,4 +155,18 @@ body {
   text-decoration: none;
   /* font-weight: bold; */
   
+}
+
+#my-events{
+  color: #003d7ee3;
+  font-size: 42px;
+  text-align: center;
+  /* border-bottom: 3px solid  #003d7ee3; */
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
 }
