@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Изпращане на имейл</title>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="mailForm.css">
     
 </head>
 <body>
