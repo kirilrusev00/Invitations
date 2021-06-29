@@ -32,13 +32,18 @@ window.addEventListener('load', (event) => {
 })
 
 function showEventInfo(eventInfo) {
-  document.getElementById("event-info").style.display = 'block';
+  document.getElementById("event-info").style.display = 'flex';
   document.getElementById("event-name").innerText = eventInfo.name;
   document.getElementById("venue").innerHTML = "<b>Място: </b>" + eventInfo.venue;
   document.getElementById("start-time").innerHTML = "<b>Начало: </b>" + eventInfo.start_time;
   document.getElementById("end-time").innerHTML = "<b>Край: </b>" + eventInfo.end_time;
-  document.getElementById("meeting-link").innerHTML = eventInfo.meeting_link && `<b>Линк към стаята: </b> ${eventInfo.meeting_link}`;
-  document.getElementById("meeting-password").innerHTML = eventInfo.meeting_password && `<b>Парола за стаята: </b> ${eventInfo.meeting_password}`;
+
+  eventInfo.meeting_link ?
+    document.getElementById("meeting-link").innerHTML = `<b>Линк към стаята: </b> ${eventInfo.meeting_link}` :
+    document.getElementById("meeting-link").style.display = "none";
+  eventInfo.meeting_password ?
+    document.getElementById("meeting-password").innerHTML = `<b>Линк към стаята: </b> ${eventInfo.meeting_password}` :
+    document.getElementById("meeting-password").style.display = "none";
 }
 
 function showResponses(isAddedByCurrentUser, status, responses) {

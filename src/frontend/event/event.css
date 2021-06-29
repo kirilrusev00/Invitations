@@ -70,6 +70,8 @@ body {
   border-color: #003d7ee3;
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
   border-width: 1.5px;
+  justify-content: space-between;
+  flex-flow: column wrap;
 }
 
 #event-name {
@@ -128,7 +130,6 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
-
 }
 
 #resources-heading {
@@ -177,11 +178,10 @@ body {
   justify-content: center;
 }
 
- label{
+label {
   justify-content: center;
-  color:#003d7ee3;
+  color: #003d7ee3;
 }
-
 
 .container-2 {
   padding: 5px 10px 15px 10px;
@@ -194,6 +194,8 @@ body {
   border-color: #003d7ee3;
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
   border-width: 1.5px;
+  justify-content: space-between;
+  flex-flow: column wrap;
 }
 
 .container-2 h2 {
@@ -203,7 +205,7 @@ body {
   text-align: center;
 }
 
-.container-21 p{
+.container-21 p {
   /* display: flex; */
   /* flex-direction: row; */
   /* text-align: center; */
@@ -214,18 +216,24 @@ body {
   /* color: #003d7ee3; */
 }
 
-.container-22{
+.container-22 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   margin-top: 15px;
   /* color: #003d7ee3; */
-  
 }
-#interested, #going, #not-going, #invited{
-color:#003d7ee3;
+
+#interested,
+#going,
+#not-going,
+#invited {
+  color: #003d7ee3;
 }
-#interested-button, #going-button, #not-going-button{
+
+#interested-button,
+#going-button,
+#not-going-button {
   width: 33%;
   height: 35px;
   border: 1px solid;
@@ -238,10 +246,17 @@ color:#003d7ee3;
   cursor: pointer;
   outline: none;
   margin-top: 10px;
-  /* background-color: #e2ebf1; */
+  background-color: #dfe8ee;
 }
 
-.add-resources-button{
+#interested-button:disabled,
+#going-button:disabled,
+#not-going-button:disabled {
+  cursor: not-allowed;
+  background-color: #f2f9fd;
+}
+
+.add-resources-button {
   justify-content: center;
   font-size: 16px;
   /* padding: 1px 6px; */
