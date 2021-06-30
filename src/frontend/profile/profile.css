@@ -87,8 +87,6 @@ body {
   padding: 5px 20px 15px 20px;
   box-sizing: border-box;
   margin-top: 40px;
-  /* margin-left:50px; */
-  /* transform: translate(-50%, -50%); */
   width: 500px;
   background: white;
   border-style: solid;
@@ -118,12 +116,10 @@ body {
 .add-event-form input {
   width: 100%;
   padding: 0 5px;
-  /* height: 40px; */
   font-size: 17px;
   border: none;
   outline: none;
   border-bottom: 1px solid silver;
-  /* margin-left: 15px;  */
 }
 
 #profile,
@@ -179,8 +175,6 @@ body {
   padding: 5px 20px 5px 20px;
   box-sizing: border-box;
   margin-top: 40px;
-  /* margin-left:50px; */
-  /* transform: translate(-50%, -50%); */
   width: 900px;
   background: white;
   border-style: solid;
@@ -217,11 +211,9 @@ body {
   border-width: 1px;
   text-align: center;
   text-decoration: none;
-  /* font-weight: bold; */
   
 }
 .events{
-  /* text-decoration: none; */
   color: #003d7ee3;
 }
 
@@ -233,7 +225,6 @@ body {
   color: #003d7ee3;
   font-size: 42px;
   text-align: center;
-  /* border-bottom: 3px solid  #003d7ee3; */
   margin-bottom: 15px;
   margin-top: 20px;
 }
@@ -252,5 +243,5 @@ body {
 
 ::placeholder {
   color: #003d7ee3;
-  opacity: 1; /* Firefox */
+  opacity: 1;
 }
