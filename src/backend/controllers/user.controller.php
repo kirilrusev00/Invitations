@@ -1,6 +1,6 @@
 <?php 
 include('../models/user.php');
-include('../services/user.service.php');
+include('../services/user-service.php');
 
 class UserController {
   private $userService;
