@@ -1,6 +1,7 @@
 <?php
 require_once(realpath(dirname(__FILE__) . '/../db/config.php'));
 require_once(realpath(dirname(__FILE__) . '/user-service.php'));
+require_once(realpath(dirname(__FILE__) . '/mail-service.php'));
 require_once(realpath(dirname(__FILE__) . '/response-service.php'));
 require_once(realpath(dirname(__FILE__) . '/../models/event.php'));
 require_once(realpath(dirname(__FILE__) . '/../models/event-response.php'));
@@ -9,12 +10,14 @@ class EventService
 {
   private $db;
   private $userService;
+  private $mailService;
   private $responseService;
 
   function __construct()
   {
     $this->db = new Database();
     $this->userService = new UserService();
+    $this->mailService = new MailService();
     $this->responseService = new ResponseService();
   }
 
@@ -35,6 +38,7 @@ class EventService
       foreach ($invitedUsers["data"] as $invitedUser) {
         if ($invitedUser['id'] !== $_SESSION['userId']) {
           $insertResponseValues .= "('" . $invitedUser['id'] . "', '" . $eventId . "'),";
+          $this->mailService->sendMail($invitedUser['email'], $eventId, $eventData['name']);
         }
       }
 

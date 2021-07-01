@@ -40,7 +40,7 @@ class UserService {
   function getUsersByCourseAndSpecialty($course, $specialty) {
     $this->db->getConnection()->beginTransaction();
     try{
-        $sql = "SELECT id FROM users WHERE course = '{$course}' AND specialty = '{$specialty}'";
+        $sql = "SELECT id, email FROM users WHERE course = '{$course}' AND specialty = '{$specialty}'";
         $getUsersByCourseAndSpecialty = $this->db->getConnection()->prepare($sql);
         $getUsersByCourseAndSpecialty->execute();
         $this->db->getConnection()->commit();
