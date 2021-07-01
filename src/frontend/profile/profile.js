@@ -108,7 +108,7 @@ logoutBtn.addEventListener('click', () => {
 });
 
 function logout() {
-  fetch('../../logout.php', {
+  fetch('../../backend/endpoints/logout.php', {
     method: 'GET'
   })
     .then((response) => {

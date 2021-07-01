@@ -23,26 +23,27 @@ class UserService {
     }
   }
 
-  function getUserByEmail ($data) {
+  function getUserByEmail ($email) {
     try {
-      $connection = $this->db->getConnection(); // ->beginTransaction();
+      $connection = $this->db->getConnection()->beginTransaction();
       $sql = "SELECT * FROM users WHERE email=:email";
-      $statement = $connection->prepare($sql);
-      $statement->execute(["email" => $data["email"]]);
+      $userByEmail = $this->db->getConnection()->prepare($sql);
+      $userByEmail->execute(["email" => $email]);
+      $result = $userByEmail->fetch(PDO::FETCH_ASSOC);
+      $this->db->getConnection()->commit();
 
-      if ($statement->rowCount() < 1) return ["success" => false, "error" => "No user found."];
+      if (empty($result)) return ["success" => false, "error" => "Няма намерен потребител."];
       
-      // $this->db->getConnection()->commit();
-      return ["success" => true, "data" => $statement];
+      return ["success" => true, "data" => $result];
     } catch (PDOException $e) {
-        // $this->db->getConnection()->rollBack();
+        $this->db->getConnection()->rollBack();
         return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
     }
   }
 
   function getUsersByCourseAndSpecialty ($course, $specialty) {
     $this->db->getConnection()->beginTransaction();
-    try{
+    try {
         $sql = "SELECT id FROM users WHERE course = '{$course}' AND specialty = '{$specialty}'";
         $getUsersByCourseAndSpecialty = $this->db->getConnection()->prepare($sql);
         $getUsersByCourseAndSpecialty->execute();
@@ -57,8 +58,8 @@ class UserService {
     function getCurrentUserData () {
       $this->db->getConnection()->beginTransaction();
 
-      try{
-          $sql = "SELECT first_name, last_name, fn, course, specialty FROM users WHERE id = {$_SESSION['userId']}";
+      try {
+          $sql = "SELECT first_name, last_name, fn, course, specialty FROM users WHERE id = '{$_SESSION['userId']}'";
           $currentUserData = $this->db->getConnection()->prepare($sql);
           $currentUserData->execute();
           $this->db->getConnection()->commit();
@@ -67,24 +68,6 @@ class UserService {
           $this->db->getConnection()->rollBack();
           return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
       }
-  }
-
-    function loginUser($email, $password) {
-    $this->db->getConnection()->beginTransaction();
-
-    try {
-        $sql = "SELECT * FROM `users` WHERE email='$email' AND password='" . md5($password) . "' ";
-        
-        $result = mysqli_query($this->db->getConnection(), $sql) or die(mysql_error());
-      if ($result->rowCount() < 1) return ["success" => false, "error" => "No user found."];
-      
-      return ["success" => true, "data" => $result];
-    }
-    catch (PDOException $e) {
-      $this->db->getConnection()->rollBack();
-
-      return ["success" => false, "error" => "Connection failed: " . $e->getMessage()];
-    }
   }
 }
 

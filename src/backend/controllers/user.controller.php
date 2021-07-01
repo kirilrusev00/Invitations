@@ -10,47 +10,36 @@ class UserController {
   }
 
   private function checkLogin($email, $password) {
-    session_start();
-
+    
     $resultUser = $this->userService->getUserByEmail($email);
     if (!$resultUser["success"]) throw new Exception($resultUser["error"]);
-
-    $resultData = $resultUser["data"]->fetch(PDO::FETCH_ASSOC);
-    if (empty($resultData) || mysqli_num_rows($resultUser) > 1) {
-        throw new Exception("Възникна грешка.");
+    
+    if (empty($resultUser["data"])) {
+      throw new Exception("Възникна грешка.");
     } 
-
-    if (!password_verify($password, $resultData["password"])) {
-        return  json_encode(["success" => false, "message" => "Грешен имейл или парола!"]);
+    
+    if (strcmp(md5($password), $resultUser["data"]["password"]) != 0) {
+      return  ["success" => false, "message" => "Грешен имейл или парола!"];
     } 
-
-    $resultLogin = $this->userService->loginUser($email, $password);
-    if (!$resultLogin["success"]) {
-        throw new Exception("Грешно потребителско име или парола.");
-    }
-
-    return $resultData["id"];
+  
+    session_start();
+    return $resultUser["data"]["id"];
 }
 
-  function login() {
-    $phpInput = json_decode(file_get_contents("php://input"), true);
-
-    $email = $phpInput["email"];
-    $password = $phpInput["password"];
-
+  function login($email, $password) {
     if (!isset($email) || !isset($password) || empty($email) || empty($password)) {
         // echo json_encode([
         //     "success" => false,
         //     "message" => "Моля, попълнете имейл и парола.",
         // ]);
-        return  json_encode([
+        return  [
             "success" => false,
             "message" => "Моля, попълнете имейл и парола.",
-        ]);
+        ];
     } 
 
-    try {
         $userId = $this->checkLogin($email, $password);
+        // echo $userId;
         $_SESSION["userId"] = $userId;
         $userData = $this->userService->getCurrentUserData()["data"]->fetch(PDO::FETCH_ASSOC);
        
@@ -59,26 +48,18 @@ class UserController {
         $_SESSION["fn"] = $userData["fn"];
         $_SESSION["course"] = $userData["course"];
         $_SESSION["specialty"] = $userData["specialty"];
-
-        $_SESSION["email"] = $phpInput["email"];
+    
+        $_SESSION["email"] = $email;
 
         // echo json_encode([
         //     "success" => true,
         //     "email" => $_SESSION["email"],
         // ]);
         
-        setcookie("email", $userData["email"], time() + 600, "/");
-        setcookie("password", $userData["password"], time() + 600, "/");
+        setcookie("email", $email, time() + 600, "/");
+        setcookie("password", $password, time() + 600, "/");
 
-        return  json_encode(["success" => true, "email" => $_SESSION["email"]]);
-    } 
-    catch (Exception $e) {
-        echo json_encode([
-            "success" => false,
-            "message" => $e->getMessage(),
-        ]);
-        return  json_encode(["success" => false, "message" => $e->getMessage()]);
-    }
+        return  ["success" => true, "email" => $_SESSION["email"]];
   }  
   
 }
