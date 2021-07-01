@@ -1,6 +1,6 @@
 <?php 
-include('../models/user.php');
-include('../services/user-service.php');
+include("../models/user.php");
+include("../services/user-service.php");
 
 class UserController {
   private $userService;
@@ -13,55 +13,71 @@ class UserController {
     session_start();
 
     $resultUser = $this->userService->getUserByEmail($email);
+    if (!$resultUser["success"]) throw new Exception($resultUser["error"]);
+
     $resultData = $resultUser["data"]->fetch(PDO::FETCH_ASSOC);
-    if (!$resultUser["success"] || empty($resultData) || mysqli_num_rows($resultUser) > 1) { // || !password_verify($password, $resultData["password"])) {
+    if (empty($resultData) || mysqli_num_rows($resultUser) > 1) {
         throw new Exception("Възникна грешка.");
+    } 
+
+    if (!password_verify($password, $resultData["password"])) {
+        return  json_encode(["success" => false, "message" => "Грешен имейл или парола!"]);
     } 
 
     $resultLogin = $this->userService->loginUser($email, $password);
     if (!$resultLogin["success"]) {
         throw new Exception("Грешно потребителско име или парола.");
     }
-    echo "ura!";
+
     return $resultData["id"];
 }
 
   function login() {
-    $phpInput = json_decode(file_get_contents('php://input'), true);
+    $phpInput = json_decode(file_get_contents("php://input"), true);
 
-    $email = $phpInput['email'];
-    $password = $phpInput['password'];
+    $email = $phpInput["email"];
+    $password = $phpInput["password"];
 
     if (!isset($email) || !isset($password) || empty($email) || empty($password)) {
-        echo json_encode([
-            'success' => false,
-            'message' => "Моля, попълнете имейл и парола.",
+        // echo json_encode([
+        //     "success" => false,
+        //     "message" => "Моля, попълнете имейл и парола.",
+        // ]);
+        return  json_encode([
+            "success" => false,
+            "message" => "Моля, попълнете имейл и парола.",
         ]);
-        return;
     } 
 
     try {
         $userId = $this->checkLogin($email, $password);
-        $_SESSION['userId'] = $userId;
-
+        $_SESSION["userId"] = $userId;
         $userData = $this->userService->getCurrentUserData()["data"]->fetch(PDO::FETCH_ASSOC);
-        $_SESSION['firstName'] = $userData["first_name"];
-        $_SESSION['lastName'] = $userData["last_name"];
-        $_SESSION['fn'] = $userData["fn"];
-        $_SESSION['course'] = $userData["course"];
-        $_SESSION['specialty'] = $userData["specialty"];
+       
+        $_SESSION["firstName"] = $userData["first_name"];
+        $_SESSION["lastName"] = $userData["last_name"];
+        $_SESSION["fn"] = $userData["fn"];
+        $_SESSION["course"] = $userData["course"];
+        $_SESSION["specialty"] = $userData["specialty"];
 
-        $_SESSION['email'] = $phpInput['email'];
+        $_SESSION["email"] = $phpInput["email"];
 
+        // echo json_encode([
+        //     "success" => true,
+        //     "email" => $_SESSION["email"],
+        // ]);
+        
+        setcookie("email", $userData["email"], time() + 600, "/");
+        setcookie("password", $userData["password"], time() + 600, "/");
+
+        return  json_encode(["success" => true, "email" => $_SESSION["email"]]);
+    } 
+    catch (Exception $e) {
         echo json_encode([
-            'success' => true,
-            'email' => $_SESSION['email'],
+            "success" => false,
+            "message" => $e->getMessage(),
         ]);
-    } catch (Exception $e) {
-        echo json_encode([
-            'success' => false,
-            'message' => $e->getMessage(),
-        ]);
+        return  json_encode(["success" => false, "message" => $e->getMessage()]);
     }
   }  
   

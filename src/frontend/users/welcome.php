@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['email'])) {
-  header("Location: ../login/index.php");
+  // header("Location: ../login/index.php");
 }
 
 
@@ -21,7 +21,7 @@ if (!isset($_SESSION['email'])) {
 </head>
 
 <body>
-  <?php echo "<h1> " . $_SESSION['email'] . "</h1>"; ?>
+  <!-- <?php echo "<h1> " . $_SESSION['email'] . "</h1>"; ?> -->
   <a href="logout.php">Изход</a>
 </body>
 

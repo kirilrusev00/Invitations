@@ -1,43 +1,51 @@
-// const CONSTANTS = require('../constants');
-/*
-const onFormSubmitted = (event) => {
+const onFormSubmit = () => {
+  const form = document.getElementById("login-form");
+  const inputElements = document.querySelectorAll("input");
+  const responseMessage = document.getElementById("response-message");
 
-  // document.getElementById("submit-btn").innerHTML = "Hello World";
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-  console.log('1');
-  event.preventDefault();
+    responseMessage.classList.add("hide");
+    responseMessage.innerHTML = null;
 
-  const formElement = event.target;
-
-  const formData = {
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value,
-  };
-
-  const pathLogin = 'http://localhost:8080/Invitations/src/backend/endpoints/login.php'; //CONSTANTS.getUrl('login.php');
-  console.log('2');
-  console.log(formData);
-
-
-  fetch(pathLogin, {
-    method: "POST",
-    body: JSON.stringify(formData),
-  })
-    // .then((response) => console.log(response)) //response.json()
-    .then((response) => {
-      console.log(response);
-      if (response.status === 200) {
-        console.log("hey!");
-        location.replace("../users/welcome.php");
-      } else {
-        document.getElementById("user-message").innerText = "Нещо се обърка!"; // response. ?
-      }
+    let formData = {};
+    inputElements.forEach((input) => {
+      formData[input.name] = input.value;
     });
 
-  return false;
+    const pathLogin = '../../backend/endpoints/login.php';
+    try {
+      const loginResponse = fetch(pathLogin, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", },
+        body: JSON.stringify(formData),
+      })
+        .then(res => res);
+
+
+      console.log(await loginResponse);
+      // const responseData = await loginResponse.json();
+      // signIn(loginResponse);
+    }
+    catch (err) { throw err; }
+  });
 };
 
-document
-  .getElementById("submit-btn")
-  .addEventListener("click", onFormSubmitted);
-*/
+const signIn = async (responseData) => {
+  // const redirectToHome = window.location.replace("../users/welcome.php");
+  console.log(responseData);
+  // responseData.success ? window.location.replace("../users/welcome.php") : showErrorMessage("Нещо се обърка!");
+};
+
+const showErrorMessage = (/** @type {string} */ message) => {
+  const responseMessage = document.getElementById("response-message");
+  responseMessage.classList.remove("hide");
+  responseMessage.innerText = message;
+};
+
+(() => {
+  document
+    .getElementById("submit-btn")
+    .addEventListener("click", onFormSubmit);
+})();

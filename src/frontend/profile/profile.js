@@ -47,7 +47,7 @@ window.addEventListener('load', (event) => {
 
   return false;
 
-})
+});
 
 //adding events
 const onFormSubmitted = (event) => {
@@ -74,10 +74,10 @@ const onFormSubmitted = (event) => {
     .then((response) => response.json())
     .then((response) => {
       if (response.success) {
-        document.getElementById("user-message").innerText = "Събитието е добавено успешно!";
+        document.getElementById("response-message").innerText = "Събитието е добавено успешно!";
         //location.replace("./welcome.php");
       } else {
-        document.getElementById("user-message").innerText = response.message;
+        document.getElementById("response-message").innerText = response.message;
       }
     });
 
@@ -86,7 +86,7 @@ const onFormSubmitted = (event) => {
 
 document
   .getElementById("add-event-form")
-  .addEventListener("submit", onFormSubmitted);
+  .addEventListener("submit", onFormSubmit);
 
 //working with the navigation
 const profileBtn = document.getElementById('profile');
