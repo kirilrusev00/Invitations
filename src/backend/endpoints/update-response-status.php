@@ -8,6 +8,7 @@ if (!isset($_SESSION['email'])) {
     'success' => false,
     'message' => "No current user",
 ]);
+exit();
 }
 
 $responseController = new ResponseController();

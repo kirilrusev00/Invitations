@@ -14,8 +14,8 @@ window.addEventListener('load', (event) => {
         document.getElementById("fn").innerHTML = "<b>Факултетен номер: </b>" + response.value.fn;
         document.getElementById("course").innerHTML = "<b>Курс: </b>" + response.value.course;
       }
-      else {
-        // redirect to login screen
+      else if (response.message === "No current user") {
+        redirect("../login/login.html");
       }
     });
 
@@ -40,8 +40,8 @@ window.addEventListener('load', (event) => {
           document.getElementById("event-list").appendChild(sectionElement);
         });
       }
-      else {
-        // redirect to login screen
+      else if (response.message === "No current user") {
+        redirect("../login/login.html");
       }
     });
 
@@ -77,6 +77,9 @@ const onFormSubmitted = (event) => {
         document.getElementById("user-message").innerText = "Събитието е добавено успешно!";
         //location.replace("./welcome.php");
       } else {
+        if (response.message === "No current user") {
+          redirect("../login/login.html");
+        }
         document.getElementById("user-message").innerText = response.message;
       }
     });
@@ -116,7 +119,7 @@ function logout() {
       if (!response.success) {
         throw new Error('Error logout user.');
       }
-      redirect('../login/index.html');
+      redirect('../login/login.html');
     })
     .catch(error => {
       const message = 'Error logout user.';

@@ -5,7 +5,7 @@
 
     session_destroy();
 
-    header("location:frontend/login/index.html");
+    header("location:frontend/login/login.html");
 
     exit();
 ?>

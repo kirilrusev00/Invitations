@@ -25,8 +25,8 @@ window.addEventListener('load', (event) => {
           document.getElementById("events-going-interested").appendChild(sectionElement);
         });
       }
-      else {
-        // redirect to login screen
+      else if (response.message === "No current user") {
+        redirect("../login/login.html");
       }
     });
 
@@ -53,8 +53,8 @@ window.addEventListener('load', (event) => {
             document.getElementById("events-invited").appendChild(sectionElement);
           });
         }
-        else {
-          // redirect to login screen
+        else if (response.message === "No current user") {
+          redirect("../login/login.html");
         }
       });
 
@@ -89,7 +89,7 @@ function logout() {
       if (!response.success) {
         throw new Error('Error logout user.');
       }
-      redirect('../login/index.html');
+      redirect('../login/login.html');
     })
     .catch(error => {
       const message = 'Error logout user.';

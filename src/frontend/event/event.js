@@ -24,6 +24,9 @@ window.addEventListener('load', (event) => {
         showUploadedResources(eventId, isAddedByCurrentUser, response.value.status);
         showUploadFilesForm(eventId, isAddedByCurrentUser);
       } else {
+        if (response.message === "No current user") {
+          redirect("../login/login.html");
+        }
         document.getElementById("event-name").innerText = response.message;
       }
     });
@@ -88,7 +91,9 @@ function showUploadedResources(eventId, isAddedByCurrentUser, status) {
             response.value.forEach(visualizeResources);
           }
         }
-        //console.log(response)
+        else if (response.message === "No current user") {
+          redirect("../login/login.html");
+        }
       });
   }
 }
@@ -160,7 +165,9 @@ function sendUpdateResponseRequest(newStatus) {
       if (response.success) {
         location.reload();
       }
-
+      else if (response.message === "No current user") {
+        redirect("../login/login.html");
+      }
     });
 
   return false;
@@ -202,7 +209,7 @@ function logout() {
       if (!response.success) {
         throw new Error('Error logout user.');
       }
-      redirect('../login/index.html');
+      redirect('../login/login.html');
     })
     .catch(error => {
       const message = 'Error logout user.';

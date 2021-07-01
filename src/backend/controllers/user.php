@@ -16,7 +16,6 @@ class UserController
     $result = $this->userService->getUserByEmail($email);
     $resultData = $result["data"]->fetch(PDO::FETCH_ASSOC);
     if (!$result["success"] || empty($resultData)) {
-      
       throw new Exception("Грешно потребителско име или парола.");
     }
 

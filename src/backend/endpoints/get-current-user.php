@@ -6,6 +6,7 @@
         'success' => false,
         'message' => "No current user",
     ]);
+    exit();
     }
 
     $userInfo['firstName'] = $_SESSION['firstName'];

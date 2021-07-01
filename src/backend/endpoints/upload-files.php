@@ -8,6 +8,7 @@
         'success' => false,
         'message' => "No current user",
     ]);
+    exit();
     }
 
     $referer = $_SERVER['HTTP_REFERER'];
