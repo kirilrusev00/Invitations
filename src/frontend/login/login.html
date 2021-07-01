@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="./login.css" />
+		<script src="login.js" defer></script>
+		<title>Вход</title>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="../../images/favicon.png"
+		/>
+	</head>
 
-  <link rel="stylesheet" type="text/css" href="./login.css">
-  <script src="login.js" defer></script>
-  <title>Покани за уеб презентации</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="../../images/favicon.png">
-</head>
-
-<body>
-  <section class="container">
-    <form id="login-form" class="login-form">
-      <h1 class="login-text" style="font-size: 2rem; font-weight: 800;">Вход</h1>
-      <input class="input-group" type="email" placeholder="Имейл" name="email" required>
-      <input class="input-group" type="password" placeholder="Парола" name="password" required>
-      <button class="btn" id="login-button" type="submit">Вход</button>
-      <p id="user-message"></p>
-      <p class="login-under-text">Все още нямаш профил? <a href="register.php">Регистрирай се</a></p>
-    </form>
-  </section>
-</body>
-
+	<body>
+		<section class="container">
+			<form id="login-form" class="login-form">
+				<h1
+					class="login-text"
+					style="font-size: 2rem; font-weight: 800"
+				>
+					Вход
+				</h1>
+				<input
+					class="input-group"
+					type="email"
+					placeholder="Имейл"
+					name="email"
+					required
+				/>
+				<input
+					class="input-group"
+					type="password"
+					placeholder="Парола"
+					name="password"
+					required
+				/>
+				<button class="btn" id="login-button" type="submit">
+					Вход
+				</button>
+				<p id="user-message"></p>
+				<p class="login-under-text">
+					Все още нямаш профил?
+					<a href="../register/register.html">Регистрирай се</a>
+				</p>
+			</form>
+		</section>
+	</body>
 </html>

@@ -1,4 +1,4 @@
-const onFormSubmitted = (event) => {
+const onLoginSubmit = (event) => {
   event.preventDefault();
 
   const formElement = event.target;
@@ -26,4 +26,4 @@ const onFormSubmitted = (event) => {
 
 document
   .getElementById("login-form")
-  .addEventListener("submit", onFormSubmitted);
+  .addEventListener("submit", onLoginSubmit);

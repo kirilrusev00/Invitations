@@ -47,7 +47,7 @@ window.addEventListener('load', (event) => {
 
   return false;
 
-})
+});
 
 //adding events
 const onFormSubmitted = (event) => {

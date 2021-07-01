@@ -1,7 +1,7 @@
 window.addEventListener('load', (event) => {
   event.preventDefault();
 
-  const url_string = window.location.href
+  const url_string = window.location.href;
   const url = new URL(url_string);
   const eventId = url.searchParams.get("id");
 
@@ -32,7 +32,7 @@ window.addEventListener('load', (event) => {
     });
 
   return false;
-})
+});
 
 function showEventInfo(eventInfo) {
   document.getElementById("event-info").style.display = 'flex';
@@ -120,7 +120,7 @@ const visualizeResources = (resourceLink) => {
   imageLink.appendChild(image);
   imageLink.appendChild(imageName);
   document.getElementById("resources").appendChild(imageLink);
-}
+};
 
 function createResourcesSection() {
   let resourcesSection = document.createElement("section");
@@ -142,7 +142,7 @@ function showUploadFilesForm(eventId, isAddedByCurrentUser) {
 }
 
 function sendUpdateResponseRequest(newStatus) {
-  const url_string = window.location.href
+  const url_string = window.location.href;
   const url = new URL(url_string);
 
   const eventId = url.searchParams.get("id");
