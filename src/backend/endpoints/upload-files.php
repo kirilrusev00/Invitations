@@ -3,6 +3,13 @@
 
     require_once(realpath(dirname(__FILE__) . '/../controllers/resource.php'));
 
+    if (!isset($_SESSION['email'])) {
+      echo json_encode([
+        'success' => false,
+        'message' => "No current user",
+    ]);
+    }
+
     $referer = $_SERVER['HTTP_REFERER'];
     header("Location: $referer");
 

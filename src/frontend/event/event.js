@@ -194,19 +194,15 @@ logoutBtn.addEventListener('click', () => {
 });
 
 function logout() {
-  fetch('../../logout.php', {
+  fetch('../../backend/endpoints/logout.php', {
     method: 'GET'
   })
+    .then(response => response.json())
     .then((response) => {
-      if (!response.ok) {
+      if (!response.success) {
         throw new Error('Error logout user.');
       }
-      return response.json();
-    })
-    .then(response => {
-      if (response.success) {
-        redirect('../login/index.html');
-      }
+      redirect('../login/index.html');
     })
     .catch(error => {
       const message = 'Error logout user.';

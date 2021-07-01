@@ -3,6 +3,13 @@ require_once(realpath(dirname(__FILE__) . '/../controllers/response.php'));
 
 session_start();
 
+if (!isset($_SESSION['email'])) {
+  echo json_encode([
+    'success' => false,
+    'message' => "No current user",
+]);
+}
+
 $responseController = new ResponseController();
 
 $phpInput = json_decode(file_get_contents('php://input'), true);

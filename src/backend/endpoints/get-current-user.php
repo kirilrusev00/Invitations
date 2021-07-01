@@ -3,7 +3,7 @@
 
     if (!isset($_SESSION['email'])) {
       echo json_encode([
-        'success' => true,
+        'success' => false,
         'message' => "No current user",
     ]);
     }

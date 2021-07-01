@@ -15,7 +15,7 @@ const onFormSubmitted = (event) => {
     .then((response) => response.json())
     .then((response) => {
       if (response.success) {
-        location.replace("../../welcome.php");
+        location.replace("../events/events.html");
       } else {
         document.getElementById("user-message").innerText = response.message;
       }
